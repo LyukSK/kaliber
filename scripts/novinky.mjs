@@ -10,7 +10,7 @@ import Anthropic from '@anthropic-ai/sdk';
 
 const KOREN = new URL('../', import.meta.url);
 const SUBOR_NOVINIEK = new URL('src/data/novinky.json', KOREN);
-const MODEL = process.env.KALIBER_MODEL ?? 'claude-opus-5-5';
+const MODEL = process.env.KALIBER_MODEL ?? 'claude-sonnet-5-5';
 const MAX_VEK_DNI = 3;
 const MAX_ZO_ZDROJA = 8;
 const MAX_NOVYCH = 40;
