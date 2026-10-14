@@ -14,7 +14,7 @@ const z = hodinky.znacka.data;
 >
   <div class="foto">
     {d.fotky.length > 0
-      ? <img src={d.fotky[0]} alt="" loading="lazy" />
+      ? <img src={d.fotky[0]} alt="" loading="lazy" referrerpolicy="no-referrer" />
       : <Cifernik farba={d.farba} luneta={d.luneta} chrono={d.styl === 'Chronograf'} />}
     <span class={`stav stav-${d.stav}`}>{STAVY[d.stav]}</span>
   </div>
@@ -46,7 +46,7 @@ const z = hodinky.znacka.data;
     align-items: center;
     justify-content: center;
   }
-  .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .foto img { width: 100%; height: 100%; object-fit: contain; background: var(--biela); }
   .foto .stav { position: absolute; top: 14px; left: 14px; }
   .telo {
     padding: 20px;

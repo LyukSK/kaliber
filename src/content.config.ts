@@ -44,6 +44,11 @@ const hodinky = defineCollection({
     luneta: z.string().optional(),
     fotky: z.array(z.string()).default([]),
     odkaz: z.string().url().optional(),
+    // Kde kúpiť: názov obchodu, cena v mene obchodu a dostupnosť k dátumu overenia.
+    obchod: z.string().optional(),
+    cenaPovodna: z.string().optional(),
+    dostupnost: z.enum(['skladom', 'vypredané', 'predobjednávka', 'čoskoro', 'kickstarter']).optional(),
+    overene: z.coerce.date().optional(),
     pridane: z.coerce.date(),
   }),
 });

@@ -15,6 +15,14 @@ export async function nacitajHodinky() {
     .sort((a, b) => b.data.pridane - a.data.pridane);
 }
 
+export const DOSTUPNOST = {
+  skladom: 'Skladom',
+  'vypredané': 'Vypredané',
+  'predobjednávka': 'Predobjednávka',
+  'čoskoro': 'Čoskoro v predaji',
+  kickstarter: 'Kampaň na Kickstarteri',
+};
+
 export function cislo(n) {
   return String(n).replace('.', ',');
 }

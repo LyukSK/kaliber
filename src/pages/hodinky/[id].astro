@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import Zaklad from '../../layouts/Zaklad.astro';
 import Cifernik from '../../components/Cifernik.astro';
-import { nacitajHodinky, STAVY, technickeUdaje, kratkeUdaje, cena, hodiniek } from '../../lib/hodinky.js';
+import { nacitajHodinky, STAVY, DOSTUPNOST, technickeUdaje, kratkeUdaje, cena, hodiniek } from '../../lib/hodinky.js';
 
 export async function getStaticPaths() {
   const vsetky = await nacitajHodinky();
@@ -35,12 +35,12 @@ const datum = d.pridane.toLocaleDateString('sk-SK');
     <div class="galeria">
       <div class="hlavna-foto">
         {d.fotky.length > 0
-          ? <img src={d.fotky[0]} alt={`${z.data.nazov} ${d.model}`} />
+          ? <img src={d.fotky[0]} alt={`${z.data.nazov} ${d.model}`} referrerpolicy="no-referrer" />
           : <Cifernik farba={d.farba} luneta={d.luneta} chrono={d.styl === 'Chronograf'} velkost="70%" popis="Ilustrácia hodiniek, fotka zatiaľ chýba" />}
       </div>
       {d.fotky.length > 1 && (
         <div class="nahlady">
-          {d.fotky.slice(1).map((f) => <img src={f} alt="" loading="lazy" />)}
+          {d.fotky.slice(1).map((f) => <img src={f} alt="" loading="lazy" referrerpolicy="no-referrer" />)}
         </div>
       )}
     </div>
@@ -56,10 +56,25 @@ const datum = d.pridane.toLocaleDateString('sk-SK');
         {cena(d.cena) && <div class="cena">cca {cena(d.cena)}</div>}
       </div>
 
-      <div class="akcie">
-        {d.odkaz && <a class="tlacidlo" href={d.odkaz} rel="noopener">Kúpiť na {domena}</a>}
-        <a class="tlacidlo obrys" href="#znacka">O značke</a>
-      </div>
+      {d.odkaz && (
+        <div class="karta kupa">
+          <div class="stitok">Kde kúpiť</div>
+          <div class="riadky">
+            <div class="riadok"><span>Obchod</span><a href={d.odkaz} rel="noopener">{d.obchod ?? domena}</a></div>
+            {(d.cenaPovodna || cena(d.cena)) && (
+              <div class="riadok"><span>Cena</span><span>{d.cenaPovodna ?? `cca ${cena(d.cena)}`}{d.cenaPovodna && cena(d.cena) && !d.cenaPovodna.includes('€') && <span class="prepocet"> (cca {cena(d.cena)})</span>}</span></div>
+            )}
+            {d.dostupnost && (
+              <div class="riadok"><span>Dostupnosť</span><span class={`dostupnost dostupnost-${d.dostupnost === 'skladom' ? 'ano' : d.dostupnost === 'vypredané' ? 'nie' : 'inak'}`}>{DOSTUPNOST[d.dostupnost]}</span></div>
+            )}
+          </div>
+          <div class="akcie">
+            <a class="tlacidlo" href={d.odkaz} rel="noopener">{d.dostupnost === 'vypredané' ? 'Pozrieť v obchode' : 'Kúpiť'}</a>
+            <a class="tlacidlo obrys" href="#znacka">O značke</a>
+          </div>
+          {d.overene && <div class="mono overene">Dostupnosť overená {d.overene.toLocaleDateString('sk-SK')}</div>}
+        </div>
+      )}
 
       <div class="riadky">
         <div class="stitok nadpis-tabulky">Technické údaje</div>
@@ -68,10 +83,12 @@ const datum = d.pridane.toLocaleDateString('sk-SK');
         ))}
       </div>
 
-      <div class="karta poznamka">
-        <div class="stitok">Moja poznámka</div>
-        <div class="serif"><Poznamka /></div>
-      </div>
+      {h.body?.trim() && (
+        <div class="karta poznamka">
+          <div class="stitok">Moja poznámka</div>
+          <div class="serif"><Poznamka /></div>
+        </div>
+      )}
     </div>
   </div>
 
@@ -124,7 +141,7 @@ const datum = d.pridane.toLocaleDateString('sk-SK');
     justify-content: center;
     overflow: hidden;
   }
-  .hlavna-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .hlavna-foto img { width: 100%; height: 100%; object-fit: contain; background: var(--biela); }
   .nahlady { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
   .nahlady img { aspect-ratio: 1 / 1; object-fit: cover; border-radius: 4px; }
   .info { flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
@@ -134,6 +151,13 @@ const datum = d.pridane.toLocaleDateString('sk-SK');
   h1 { font-size: clamp(38px, 5vw, 60px); line-height: 1; letter-spacing: -0.02em; }
   .cena { font-size: 22px; font-weight: 700; }
   .akcie { display: flex; flex-wrap: wrap; gap: 12px; }
+  .kupa { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .kupa .riadok:last-child { border-bottom: none; }
+  .prepocet { color: var(--grafit); }
+  .dostupnost { font-weight: 600; }
+  .dostupnost-ano { color: #2F6B4F; }
+  .dostupnost-nie { color: var(--sekundovka); }
+  .overene { font-size: 12px; color: var(--grafit); }
   .nadpis-tabulky { padding-bottom: 10px; border-bottom: 2px solid var(--atrament); }
   .poznamka { padding: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 18px; }
   .poznamka :global(p) { margin: 0; }

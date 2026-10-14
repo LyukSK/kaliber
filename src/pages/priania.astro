@@ -21,7 +21,7 @@ const priania = (await nacitajHodinky())
           <span class="poradie mono">{i + 1}</span>
           <a href={`/hodinky/${h.id}/`} class="obrazok" aria-hidden="true" tabindex="-1">
             {h.data.fotky.length > 0
-              ? <img src={h.data.fotky[0]} alt="" loading="lazy" />
+              ? <img src={h.data.fotky[0]} alt="" loading="lazy" referrerpolicy="no-referrer" />
               : <Cifernik farba={h.data.farba} luneta={h.data.luneta} chrono={h.data.styl === 'Chronograf'} velkost="96" />}
           </a>
           <div class="text">

@@ -11,4 +11,4 @@ Z malej internetovej značky sa postupne stal jeden z najväčších nezávislý
 
 ## Prečo stojí za pozornosť
 
-Ukazuje, že sa dá vyrásť z mikroznačky bez straty vlastného charakteru. Modely ako C63 Sealander sú poctivé, univerzálne hodinky na každý deň.
+Ukazuje, že sa dá vyrásť z mikroznačky bez straty vlastného charakteru. Rada Trident patrí k najlepším diverom vo svojej cenovej kategórii.
