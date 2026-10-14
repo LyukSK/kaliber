@@ -1,7 +1,7 @@
 ---
 znacka: chronofuns
 model: Coffee Watch in Motion
-stav: inspiracia
+stav: chcem
 styl: Chronograf
 priemer: 38
 strojcek: Seagull ST1901

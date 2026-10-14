@@ -2,7 +2,7 @@
 znacka: serica
 model: 7505 Field Chronometer Tuxedo
 referencia: 7505 TXD
-stav: inspiracia
+stav: chcem
 cena: 1190
 styl: Field
 priemer: 35

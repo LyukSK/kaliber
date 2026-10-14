@@ -2,7 +2,7 @@
 znacka: spinnaker
 model: Fleuss 40 Automatic Pine Crest
 referencia: SP-5133-BB
-stav: inspiracia
+stav: chcem
 cena: 430
 styl: Diver
 priemer: 40

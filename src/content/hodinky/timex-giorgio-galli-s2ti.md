@@ -2,7 +2,7 @@
 znacka: timex
 model: Giorgio Galli S2Ti Automatic 38mm
 referencia: TW2Y27500
-stav: inspiracia
+stav: chcem
 cena: 1950
 styl: Integrovaný náramok
 priemer: 38

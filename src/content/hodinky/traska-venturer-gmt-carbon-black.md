@@ -2,7 +2,7 @@
 znacka: traska
 model: Venturer GMT Carbon Black
 referencia: "4217"
-stav: inspiracia
+stav: chcem
 cena: 820
 styl: GMT
 puzdro: kalená nerezová oceľ 316L

@@ -1,7 +1,7 @@
 ---
 znacka: beaucroft
 model: The Arc Burnt Orange
-stav: inspiracia
+stav: chcem
 cena: 605
 styl: Dress
 priemer: 38

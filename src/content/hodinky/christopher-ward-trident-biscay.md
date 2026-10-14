@@ -2,7 +2,7 @@
 znacka: christopher-ward
 model: C60 Trident Biscay Automatic
 referencia: C60-42C3H1-S0KW0-VT1
-stav: inspiracia
+stav: chcem
 styl: Diver
 priemer: 42
 hrubka: 11.4

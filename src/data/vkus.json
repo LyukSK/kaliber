@@ -1,5 +1,31 @@
 {
-  "analyza": null,
-  "zhrnutie": null,
-  "navrhy": []
+  "analyza": "2026-10-14",
+  "skratka": "38 až 40mm, výrazné farebné ciferníky s vintage nádychom, automat, typicky 400 až 800€",
+  "zhrnutie": "Páčia sa ti kompaktné hodinky, najčastejšie 38 až 40mm, s ciferníkom, ktorý má charakter: zelená, oranžový fumé, perleť, smalt alebo dvojfarebný tuxedo. Štýlom sa nedržíš jednej kategórie, máš diver, field, dress aj GMT, ale spája ich vintage nádych a poctivé spracovanie. Takmer všetko je automat, prevažne Miyota alebo Sellita, a najčastejšie sa pohybuješ okolo 400 až 800€. Lákajú ťa aj hodinky s príbehom, napríklad pôvodné puzdrá zo 70. rokov alebo zákopové hodinky.",
+  "navrhy": [
+    {
+      "znacka": "Lorier",
+      "krajina": "USA",
+      "preco": "Malá newyorská značka s vintage proporciami a kompaktnými puzdrami. Sadne k tvojej záľube v hodinkách s retro nádychom za rozumnú cenu.",
+      "web": "https://lorier.com"
+    },
+    {
+      "znacka": "Baltic",
+      "krajina": "Francúzsko",
+      "preco": "Francúzska mikroznačka inšpirovaná modelmi z polovice minulého storočia. Má podobného ducha ako Serica, len v nižšej cenovej hladine.",
+      "web": "https://baltic-watches.com"
+    },
+    {
+      "znacka": "Furlan Marri",
+      "krajina": "Švajčiarsko",
+      "preco": "Elegantné hodinky s farebnými ciferníkmi a vintage dizajnom. Ak sa ti páči Beaucroft Arc, pravdepodobne ťa zaujme aj ich farebná paleta.",
+      "web": "https://furlanmarri.com"
+    },
+    {
+      "znacka": "Studio Underd0g",
+      "krajina": "Veľká Británia",
+      "preco": "Hravé mechanické chronografy s ovocnými a dezertnými farbami. Majú rovnakú dávku humoru ako kávové hodinky od Chronofuns.",
+      "web": "https://studiounderd0g.com"
+    }
+  ]
 }

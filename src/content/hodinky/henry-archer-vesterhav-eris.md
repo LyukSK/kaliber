@@ -1,7 +1,7 @@
 ---
 znacka: henry-archer
 model: Vesterhav Eris
-stav: inspiracia
+stav: chcem
 cena: 609
 styl: Športové
 priemer: 40

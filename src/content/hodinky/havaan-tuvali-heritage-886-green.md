@@ -1,7 +1,7 @@
 ---
 znacka: havaan-tuvali
 model: Heritage 886 Green
-stav: inspiracia
+stav: chcem
 cena: 440
 styl: Dress
 priemer: 36

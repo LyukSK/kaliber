@@ -1,7 +1,7 @@
 ---
 znacka: vario
 model: 1918 Trench White
-stav: inspiracia
+stav: chcem
 cena: 335
 styl: Field
 priemer: 37
