@@ -1,0 +1,39 @@
+---
+// Ilustrácia hodiniek, kým nie je k dispozícii fotka.
+import { farbaRuciciek } from '../lib/hodinky.js';
+
+const { farba = '#1B2633', luneta, chrono = false, velkost = 200, popis } = Astro.props;
+const ink = farbaRuciciek(farba);
+const puzdro = '#C9CCC6';
+const indexy = Array.from({ length: 12 }, (_, i) => i * 30);
+---
+<svg
+  viewBox="0 0 200 200"
+  width={velkost}
+  height={velkost}
+  role={popis ? 'img' : undefined}
+  aria-label={popis}
+  aria-hidden={popis ? undefined : 'true'}
+>
+  <rect x="70" y="2" width="60" height="34" rx="6" fill={puzdro} />
+  <rect x="70" y="164" width="60" height="34" rx="6" fill={puzdro} />
+  <rect x="176" y="91" width="12" height="18" rx="3" fill="#B5B9B2" />
+  <circle cx="100" cy="100" r="80" fill={puzdro} />
+  <circle cx="100" cy="100" r="73" fill={luneta ?? puzdro} />
+  <circle cx="100" cy="100" r="62" fill={farba} />
+  {indexy.map((uhol) =>
+    uhol % 90 === 0
+      ? <rect x="97.5" y="44" width="5" height="11" fill={ink} transform={`rotate(${uhol} 100 100)`} />
+      : <rect x="98.5" y="44" width="3" height="7" fill={ink} transform={`rotate(${uhol} 100 100)`} />
+  )}
+  {chrono && (
+    <>
+      <circle cx="76" cy="100" r="13" fill="none" stroke={ink} stroke-width="1.5" />
+      <circle cx="124" cy="100" r="13" fill="none" stroke={ink} stroke-width="1.5" />
+    </>
+  )}
+  <rect x="97" y="64" width="6" height="38" rx="3" fill={ink} transform="rotate(-60 100 100)" />
+  <rect x="98" y="48" width="4" height="54" rx="2" fill={ink} transform="rotate(60 100 100)" />
+  <rect x="99" y="46" width="2" height="66" fill="#C8461A" transform="rotate(165 100 100)" />
+  <circle cx="100" cy="100" r="4" fill="#C8461A" />
+</svg>

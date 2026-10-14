@@ -1,0 +1,45 @@
+---
+import Zaklad from '../../layouts/Zaklad.astro';
+import { getCollection } from 'astro:content';
+import { nacitajHodinky, hodiniek, znaciek } from '../../lib/hodinky.js';
+
+const znacky = (await getCollection('znacky')).sort((a, b) => a.data.nazov.localeCompare(b.data.nazov, 'sk'));
+const vsetky = await nacitajHodinky();
+const pocet = (id) => vsetky.filter((h) => h.znacka.id === id).length;
+---
+<Zaklad titulok="Značky" aktivne="znacky">
+  <div class="hlavicka-stranky">
+    <div class="stitok">{znaciek(znacky.length)}</div>
+    <h1 class="nadpis-stranky">Značky</h1>
+    <p class="uvod">Kto stojí za hodinkami v zbierke, odkiaľ sú a prečo stoja za pozornosť.</p>
+  </div>
+  <div class="zoznam">
+    {znacky.map((z) => (
+      <a href={`/znacky/${z.id}/`} class="riadok-znacky">
+        <strong>{z.data.nazov}</strong>
+        <span>{z.data.krajina}{z.data.zalozena && ` · od ${z.data.zalozena}`}</span>
+        <span class="mono">{hodiniek(pocet(z.id))}</span>
+      </a>
+    ))}
+  </div>
+</Zaklad>
+
+<style>
+  .zoznam { border-top: 2px solid var(--atrament); }
+  .riadok-znacky {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) auto;
+    gap: 16px;
+    align-items: baseline;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--linka);
+    text-decoration: none;
+  }
+  .riadok-znacky strong { font-size: 24px; }
+  .riadok-znacky span { color: var(--grafit); }
+  .riadok-znacky .mono { font-size: 14px; }
+  @media (max-width: 600px) {
+    .riadok-znacky { grid-template-columns: 1fr auto; }
+    .riadok-znacky > span:nth-child(2) { grid-row: 2; }
+  }
+</style>

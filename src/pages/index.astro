@@ -1,0 +1,122 @@
+---
+import Zaklad from '../layouts/Zaklad.astro';
+import KartaHodiniek from '../components/KartaHodiniek.astro';
+import { nacitajHodinky, STAVY, hodiniek, znaciek } from '../lib/hodinky.js';
+import vkus from '../data/vkus.json';
+
+const vsetky = await nacitajHodinky();
+const pocetZnaciek = new Set(vsetky.map((h) => h.znacka.id)).size;
+const pocty = Object.fromEntries(Object.keys(STAVY).map((s) => [s, vsetky.filter((h) => h.data.stav === s).length]));
+const styly = [...new Set(vsetky.map((h) => h.data.styl))].sort();
+---
+<Zaklad aktivne="zbierka">
+  <div class="uvodny-riadok">
+    <div class="hlavicka-stranky">
+      <div class="stitok">{hodiniek(vsetky.length)} · {znaciek(pocetZnaciek)}</div>
+      <h1 class="nadpis-stranky">Zbierka</h1>
+      <p class="uvod">Mikroznačky a modely, ktoré ma zaujali. Niečo len na inšpiráciu, niečo raz bude na zápästí.</p>
+    </div>
+    {vkus.skratka && (
+      <a href="/vkus/" class="tmava vkus-skratka">
+        <span class="stitok">Môj vkus v skratke</span>
+        <span>{vkus.skratka}</span>
+      </a>
+    )}
+  </div>
+
+  <div class="filtre" id="filtre" hidden>
+    <div class="skupina" role="group" aria-label="Stav">
+      <button type="button" data-filter="stav" data-hodnota="" aria-pressed="true">Všetko <span class="mono">{vsetky.length}</span></button>
+      {Object.entries(STAVY).map(([k, v]) => (
+        <button type="button" data-filter="stav" data-hodnota={k} aria-pressed="false">{v} <span class="mono">{pocty[k]}</span></button>
+      ))}
+    </div>
+    <div class="skupina styly" role="group" aria-label="Štýl">
+      <button type="button" data-filter="styl" data-hodnota="" aria-pressed="true">Všetky štýly</button>
+      {styly.map((s) => (
+        <button type="button" data-filter="styl" data-hodnota={s} aria-pressed="false">{s}</button>
+      ))}
+    </div>
+  </div>
+
+  {vsetky.length > 0
+    ? <div class="mriezka" id="zbierka">{vsetky.map((h) => <KartaHodiniek hodinky={h} />)}</div>
+    : <p class="prazdne karta">Zbierka je zatiaľ prázdna.</p>}
+  <p class="prazdne" id="nic" hidden>V tejto kombinácii filtrov zatiaľ nič nie je.</p>
+</Zaklad>
+
+<script>
+  const filtre = document.getElementById('filtre');
+  const karty = [...document.querySelectorAll('#zbierka > a')];
+  const nic = document.getElementById('nic');
+  const stav = { stav: '', styl: '' };
+
+  if (filtre && karty.length) {
+    filtre.hidden = false;
+    filtre.addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-filter]');
+      if (!b) return;
+      stav[b.dataset.filter] = b.dataset.hodnota;
+      filtre.querySelectorAll(`button[data-filter="${b.dataset.filter}"]`).forEach((x) => {
+        x.setAttribute('aria-pressed', String(x === b));
+      });
+      let viditelne = 0;
+      karty.forEach((k) => {
+        const ok = (!stav.stav || k.dataset.stav === stav.stav) && (!stav.styl || k.dataset.styl === stav.styl);
+        k.hidden = !ok;
+        if (ok) viditelne++;
+      });
+      nic.hidden = viditelne > 0;
+    });
+  }
+</script>
+
+<style>
+  .uvodny-riadok {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+  }
+  .vkus-skratka {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 24px;
+    max-width: 400px;
+    text-decoration: none;
+    font-size: 17px;
+    line-height: 1.45;
+  }
+  .vkus-skratka:hover { color: var(--cifernik); background: #2A2F2D; }
+  .filtre {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--atrament);
+    border-bottom: 1px solid var(--linka);
+    margin-bottom: -16px;
+  }
+  .filtre[hidden] { display: none; }
+  .skupina { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skupina button {
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 22px;
+    border: 1.5px solid var(--linka);
+    background: transparent;
+    color: var(--atrament);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .skupina button .mono { font-size: 13px; opacity: 0.75; }
+  .skupina button[aria-pressed='true'] { background: var(--atrament); border-color: var(--atrament); color: var(--cifernik); }
+  .styly button { border-radius: 4px; border-width: 1px; font-weight: 400; font-size: 14px; }
+  .styly button[aria-pressed='true'] { background: var(--biela); color: var(--atrament); }
+  #zbierka > a[hidden] { display: none; }
+</style>

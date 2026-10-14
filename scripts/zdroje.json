@@ -1,0 +1,9 @@
+[
+  { "nazov": "Worn & Wound", "url": "https://wornandwound.com/feed/" },
+  { "nazov": "Fratello", "url": "https://www.fratellowatches.com/feed/" },
+  { "nazov": "Monochrome", "url": "https://monochrome-watches.com/feed/" },
+  { "nazov": "Time+Tide", "url": "https://timeandtidewatches.com/feed/" },
+  { "nazov": "aBlogtoWatch", "url": "https://www.ablogtowatch.com/feed/" },
+  { "nazov": "Hodinkee", "url": "https://www.hodinkee.com/articles/rss.xml" },
+  { "nazov": "r/microbrandwatches", "url": "https://www.reddit.com/r/microbrandwatches/top/.rss?t=day", "max": 3 }
+]

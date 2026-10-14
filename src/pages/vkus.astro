@@ -1,0 +1,109 @@
+---
+import Zaklad from '../layouts/Zaklad.astro';
+import { nacitajHodinky, cislo, cena, hodiniek } from '../lib/hodinky.js';
+import vkus from '../data/vkus.json';
+
+const vsetky = await nacitajHodinky();
+// Chcem a Mám vážia dvakrát viac ako inšpirácia.
+const vaha = (h) => (h.data.stav === 'inspiracia' ? 1 : 2);
+const MIN = 10;
+
+function skupina(titulok, hodnota) {
+  const sucty = new Map();
+  for (const h of vsetky) {
+    const k = hodnota(h);
+    if (k == null) continue;
+    sucty.set(k, (sucty.get(k) ?? 0) + vaha(h));
+  }
+  const riadky = [...sucty.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5);
+  const max = Math.max(1, ...riadky.map((r) => r[1]));
+  return { titulok, riadky: riadky.map(([k, n], i) => ({ k, n, pct: Math.round((n / max) * 100), prvy: i === 0 })) };
+}
+
+const skupiny = [
+  skupina('Veľkosť puzdra', (h) => h.data.priemer && cislo(h.data.priemer) + 'mm'),
+  skupina('Štýl', (h) => h.data.styl),
+  skupina('Strojček', (h) => h.data.pohon),
+  skupina('Pôvod značky', (h) => h.znacka.data.krajina),
+].filter((s) => s.riadky.length > 0);
+
+const ceny = vsetky.map((h) => h.data.cena).filter(Boolean);
+const analyza = vkus.analyza ? new Date(vkus.analyza).toLocaleDateString('sk-SK') : null;
+---
+<Zaklad titulok="Môj vkus" aktivne="vkus">
+  <div class="hlavicka-stranky">
+    {analyza && <div class="stitok">Posledná analýza · {analyza}</div>}
+    <h1 class="nadpis-stranky">Môj vkus</h1>
+    <p class="uvod">
+      Profil sa skladá zo všetkých hodiniek v zbierke. Hodinky v stave Chcem a Mám vážia viac ako inšpirácia.
+      Teraz vychádza z {vsetky.length === 1 ? 'jedných hodiniek' : `${vsetky.length} kúskov`}{vsetky.length < MIN && `, spoľahlivý bude zhruba od ${MIN}`}.
+    </p>
+  </div>
+
+  {vkus.zhrnutie && (
+    <div class="tmava zhrnutie">
+      <div class="stitok">Zhrnutie</div>
+      <p class="serif">{vkus.zhrnutie}</p>
+    </div>
+  )}
+
+  <div class="statistiky">
+    {skupiny.map((s) => (
+      <section class="karta">
+        <h2 class="stitok">{s.titulok}</h2>
+        {s.riadky.map((r) => (
+          <div class="pruh">
+            <div class="popis"><span>{r.k}</span></div>
+            <div class="stopa"><div class:list={['vypln', { prvy: r.prvy }]} style={`width: ${r.pct}%`}></div></div>
+          </div>
+        ))}
+      </section>
+    ))}
+    {ceny.length > 0 && (
+      <section class="karta">
+        <h2 class="stitok">Cena</h2>
+        <p class="cena-rozpatie">{cena(Math.min(...ceny))} až {cena(Math.max(...ceny))}</p>
+        <p class="poznamka">podľa {hodiniek(ceny.length)} s uvedenou cenou</p>
+      </section>
+    )}
+  </div>
+
+  <section class="navrhy">
+    <div class="hlavicka-stranky">
+      <h2 class="nadpis-sekcie">Návrhy</h2>
+      <p class="uvod">Značky, ktoré v zbierke ešte nie sú a podľa profilu by ma mohli zaujať.</p>
+    </div>
+    {vkus.navrhy.length > 0
+      ? (
+        <div class="mriezka">
+          {vkus.navrhy.map((n) => (
+            <article class="karta navrh">
+              <div class="stitok">{n.krajina}</div>
+              <h3>{n.znacka}</h3>
+              <p class="serif">{n.preco}</p>
+              {n.web && <a href={n.web} rel="noopener" class="tlacidlo obrys">Pozrieť web</a>}
+            </article>
+          ))}
+        </div>
+      )
+      : <p class="prazdne karta">Prvé návrhy pribudnú, keď bude v zbierke aspoň {MIN} hodiniek.</p>}
+  </section>
+</Zaklad>
+
+<style>
+  .zhrnutie { padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 16px; }
+  .zhrnutie p { margin: 0; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.4; max-width: 980px; }
+  .statistiky { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .statistiky .karta { padding: 24px; display: flex; flex-direction: column; gap: 14px; }
+  .pruh { display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
+  .stopa { height: 8px; background: #ECECE8; border-radius: 4px; overflow: hidden; }
+  .vypln { height: 8px; background: var(--atrament); border-radius: 4px; }
+  .vypln.prvy { background: var(--sekundovka); }
+  .cena-rozpatie { margin: 0; font-size: 26px; font-weight: 700; }
+  .poznamka { margin: 0; font-size: 14px; color: var(--grafit); }
+  .navrhy { display: flex; flex-direction: column; gap: 24px; border-top: 2px solid var(--atrament); padding-top: 40px; }
+  .nadpis-sekcie { font-size: 40px; letter-spacing: -0.01em; }
+  .navrh { padding: 24px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .navrh h3 { font-size: 28px; }
+  .navrh p { margin: 0; font-size: 17px; line-height: 1.5; flex-grow: 1; }
+</style>

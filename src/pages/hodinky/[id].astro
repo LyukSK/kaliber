@@ -1,0 +1,160 @@
+---
+import { render } from 'astro:content';
+import Zaklad from '../../layouts/Zaklad.astro';
+import Cifernik from '../../components/Cifernik.astro';
+import { nacitajHodinky, STAVY, technickeUdaje, kratkeUdaje, cena, hodiniek } from '../../lib/hodinky.js';
+
+export async function getStaticPaths() {
+  const vsetky = await nacitajHodinky();
+  return vsetky.map((h) => ({ params: { id: h.id }, props: { h, vsetky } }));
+}
+
+const { h, vsetky } = Astro.props;
+const d = h.data;
+const z = h.znacka;
+const { Content: Poznamka } = await render(h);
+const { Content: OZnacke } = await render(z);
+const odZnacky = vsetky.filter((x) => x.znacka.id === z.id).length;
+const podobne = vsetky
+  .filter((x) => x.id !== h.id)
+  .map((x) => ({
+    x,
+    skore: (x.data.styl === d.styl ? 2 : 0) + (x.znacka.id === z.id ? 2 : 0) + (x.data.priemer && d.priemer && Math.abs(x.data.priemer - d.priemer) <= 1 ? 1 : 0),
+  }))
+  .filter((p) => p.skore > 0)
+  .sort((a, b) => b.skore - a.skore)
+  .slice(0, 3)
+  .map((p) => p.x);
+const domena = d.odkaz ? new URL(d.odkaz).hostname.replace(/^www\./, '') : null;
+const datum = d.pridane.toLocaleDateString('sk-SK');
+---
+<Zaklad titulok={`${z.data.nazov} ${d.model}`} popis={`${z.data.nazov} ${d.model}: technické údaje a príbeh značky.`} aktivne="zbierka">
+  <div class="drobky"><a href="/">Zbierka</a> / <a href={`/znacky/${z.id}/`}>{z.data.nazov}</a> / {d.model}</div>
+
+  <div class="hore">
+    <div class="galeria">
+      <div class="hlavna-foto">
+        {d.fotky.length > 0
+          ? <img src={d.fotky[0]} alt={`${z.data.nazov} ${d.model}`} />
+          : <Cifernik farba={d.farba} luneta={d.luneta} chrono={d.styl === 'Chronograf'} velkost="70%" popis="Ilustrácia hodiniek, fotka zatiaľ chýba" />}
+      </div>
+      {d.fotky.length > 1 && (
+        <div class="nahlady">
+          {d.fotky.slice(1).map((f) => <img src={f} alt="" loading="lazy" />)}
+        </div>
+      )}
+    </div>
+
+    <div class="info">
+      <div class="hlavicka-stranky">
+        <div class="stav-riadok">
+          <span class={`stav stav-${d.stav}`}>{STAVY[d.stav]}</span>
+          {d.stav === 'chcem' && d.priorita && <span class="mono priorita">priorita {d.priorita}</span>}
+        </div>
+        <div class="znacka">{z.data.nazov} · {z.data.krajina}</div>
+        <h1>{d.model}</h1>
+        {cena(d.cena) && <div class="cena">cca {cena(d.cena)}</div>}
+      </div>
+
+      <div class="akcie">
+        {d.odkaz && <a class="tlacidlo" href={d.odkaz} rel="noopener">Kúpiť na {domena}</a>}
+        <a class="tlacidlo obrys" href="#znacka">O značke</a>
+      </div>
+
+      <div class="riadky">
+        <div class="stitok nadpis-tabulky">Technické údaje</div>
+        {technickeUdaje(d).map(([k, v]) => (
+          <div class="riadok"><span>{k}</span><span class="mono">{v}</span></div>
+        ))}
+      </div>
+
+      <div class="karta poznamka">
+        <div class="stitok">Moja poznámka</div>
+        <div class="serif"><Poznamka /></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="znacka" class="o-znacke">
+    <div class="fakty">
+      <div class="stitok">Kto je za značkou</div>
+      <h2><a href={`/znacky/${z.id}/`}>{z.data.nazov}</a></h2>
+      <div class="riadky">
+        {z.data.zalozena && <div class="riadok"><span>Založená</span><span>{z.data.zalozena}</span></div>}
+        <div class="riadok"><span>Krajina</span><span>{[z.data.mesto, z.data.krajina].filter(Boolean).join(', ')}</span></div>
+        {z.data.zakladatel && <div class="riadok"><span>Zakladateľ</span><span>{z.data.zakladatel}</span></div>}
+        <div class="riadok"><span>V zbierke</span><span>{hodiniek(odZnacky)}</span></div>
+      </div>
+    </div>
+    <div class="pribeh serif"><OZnacke /></div>
+  </section>
+
+  {podobne.length > 0 && (
+    <section class="podobne">
+      <h2>Podobné v zbierke</h2>
+      <div class="mriezka">
+        {podobne.map((p) => (
+          <a href={`/hodinky/${p.id}/`} class="karta mala">
+            <Cifernik farba={p.data.farba} luneta={p.data.luneta} velkost="64" />
+            <span>
+              <span class="znacka">{p.znacka.data.nazov}</span>
+              <strong>{p.data.model}</strong>
+              <span class="mono">{kratkeUdaje(p.data)}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <div class="mono meta">Pridané {datum}</div>
+</Zaklad>
+
+<style>
+  .drobky { font-size: 14px; color: var(--grafit); margin-bottom: -24px; }
+  .drobky a { color: var(--grafit); }
+  .hore { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+  .galeria { flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  .hlavna-foto {
+    aspect-ratio: 1 / 1;
+    background: var(--plocha);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hlavna-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .nahlady { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .nahlady img { aspect-ratio: 1 / 1; object-fit: cover; border-radius: 4px; }
+  .info { flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+  .stav-riadok { display: flex; align-items: center; gap: 10px; }
+  .priorita { font-size: 13px; color: var(--grafit); }
+  .znacka { font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--grafit); }
+  h1 { font-size: clamp(38px, 5vw, 60px); line-height: 1; letter-spacing: -0.02em; }
+  .cena { font-size: 22px; font-weight: 700; }
+  .akcie { display: flex; flex-wrap: wrap; gap: 12px; }
+  .nadpis-tabulky { padding-bottom: 10px; border-bottom: 2px solid var(--atrament); }
+  .poznamka { padding: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 18px; }
+  .poznamka :global(p) { margin: 0; }
+  .o-znacke { display: flex; flex-wrap: wrap; gap: 48px; border-top: 2px solid var(--atrament); padding-top: 40px; scroll-margin-top: 24px; }
+  .fakty { flex: 1 1 280px; display: flex; flex-direction: column; gap: 18px; }
+  .fakty h2 { font-size: 40px; }
+  .fakty h2 a { text-decoration: none; }
+  .pribeh { flex: 2 1 460px; min-width: 0; font-size: 20px; line-height: 1.6; }
+  .pribeh :global(p) { margin: 0 0 20px; }
+  .pribeh :global(h2) {
+    font-family: var(--sans);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 32px 0 12px;
+  }
+  .podobne { display: flex; flex-direction: column; gap: 20px; }
+  .podobne h2 { font-size: 28px; }
+  .mala { display: flex; gap: 16px; align-items: center; padding: 14px; text-decoration: none; }
+  .mala > span { display: flex; flex-direction: column; gap: 2px; }
+  .mala .znacka { font-size: 12px; }
+  .mala .mono { font-size: 13px; color: var(--text-2); }
+  .meta { font-size: 13px; color: var(--grafit); }
+</style>

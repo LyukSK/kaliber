@@ -1,0 +1,106 @@
+---
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+
+const { titulok, popis = 'Osobný archív mikroznačiek hodiniek. Hodinky, ktoré sa mi páčia, a novinky z hodinkového sveta po slovensky.', aktivne } = Astro.props;
+const menu = [
+  { href: '/', text: 'Zbierka', id: 'zbierka' },
+  { href: '/znacky/', text: 'Značky', id: 'znacky' },
+  { href: '/vkus/', text: 'Môj vkus', id: 'vkus' },
+  { href: '/novinky/', text: 'Novinky', id: 'novinky' },
+  { href: '/priania/', text: 'Zoznam prianí', id: 'priania' },
+];
+---
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulok ? `${titulok} · Kaliber` : 'Kaliber'}</title>
+    <meta name="description" content={popis} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="hlavicka">
+      <div class="obal riadok-hlavicky">
+        <a href="/" class="logo">
+          <Logo />
+          <span>KALIBER</span>
+        </a>
+        <nav aria-label="Hlavné menu">
+          {menu.map((m) => (
+            <a href={m.href} aria-current={aktivne === m.id ? 'page' : undefined}>{m.text}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main class="obal obsah">
+      <slot />
+    </main>
+    <footer class="pata">
+      <div class="obal">
+        <span>Kaliber · osobný archív mikroznačiek</span>
+        <a href="https://kucerka.sk">kucerka.sk</a>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .hlavicka { border-bottom: 1px solid var(--linka); }
+  .riadok-hlavicky {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+  }
+  .logo:hover { color: var(--atrament); }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 22px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  nav a {
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 2px solid transparent;
+  }
+  nav a[aria-current='page'] { border-bottom-color: var(--sekundovka); }
+  .obsah {
+    padding-top: 56px;
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .pata { border-top: 1px solid var(--linka); }
+  .pata .obal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    font-size: 14px;
+    color: var(--grafit);
+  }
+  .pata a { color: var(--grafit); }
+  @media (max-width: 600px) {
+    .obsah { padding-top: 32px; gap: 36px; }
+  }
+</style>

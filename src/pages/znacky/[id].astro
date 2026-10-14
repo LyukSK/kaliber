@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import Zaklad from '../../layouts/Zaklad.astro';
+import KartaHodiniek from '../../components/KartaHodiniek.astro';
+import { nacitajHodinky } from '../../lib/hodinky.js';
+
+export async function getStaticPaths() {
+  const znacky = await getCollection('znacky');
+  return znacky.map((z) => ({ params: { id: z.id }, props: { z } }));
+}
+
+const { z } = Astro.props;
+const { Content } = await render(z);
+const hodinky = (await nacitajHodinky()).filter((h) => h.znacka.id === z.id);
+---
+<Zaklad titulok={z.data.nazov} popis={`Kto stojí za značkou ${z.data.nazov} a prečo stojí za pozornosť.`} aktivne="znacky">
+  <div class="hlavicka-stranky">
+    <div class="stitok">{[z.data.krajina, z.data.zalozena && `od ${z.data.zalozena}`].filter(Boolean).join(' · ')}</div>
+    <h1 class="nadpis-stranky">{z.data.nazov}</h1>
+  </div>
+  <div class="pribeh-obal">
+    <div class="riadky fakty">
+      {z.data.zakladatel && <div class="riadok"><span>Zakladateľ</span><span>{z.data.zakladatel}</span></div>}
+      <div class="riadok"><span>Krajina</span><span>{[z.data.mesto, z.data.krajina].filter(Boolean).join(', ')}</span></div>
+      {z.data.web && <div class="riadok"><span>Web</span><a href={z.data.web} rel="noopener">{new URL(z.data.web).hostname.replace(/^www\./, '')}</a></div>}
+    </div>
+    <div class="pribeh serif"><Content /></div>
+  </div>
+  {hodinky.length > 0 && (
+    <section class="v-zbierke">
+      <h2>V zbierke</h2>
+      <div class="mriezka">{hodinky.map((h) => <KartaHodiniek hodinky={h} />)}</div>
+    </section>
+  )}
+</Zaklad>
+
+<style>
+  .pribeh-obal { display: flex; flex-wrap: wrap; gap: 48px; border-top: 2px solid var(--atrament); padding-top: 32px; }
+  .fakty { flex: 1 1 260px; }
+  .pribeh { flex: 2 1 460px; min-width: 0; font-size: 20px; line-height: 1.6; }
+  .pribeh :global(p) { margin: 0 0 20px; }
+  .pribeh :global(h2) {
+    font-family: var(--sans);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 32px 0 12px;
+  }
+  .v-zbierke { display: flex; flex-direction: column; gap: 20px; }
+  .v-zbierke h2 { font-size: 28px; }
+</style>

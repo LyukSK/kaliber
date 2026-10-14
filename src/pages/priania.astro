@@ -1,0 +1,53 @@
+---
+import Zaklad from '../layouts/Zaklad.astro';
+import Cifernik from '../components/Cifernik.astro';
+import { nacitajHodinky, cena, kratkeUdaje } from '../lib/hodinky.js';
+
+const priania = (await nacitajHodinky())
+  .filter((h) => h.data.stav === 'chcem')
+  .sort((a, b) => (a.data.priorita ?? 9) - (b.data.priorita ?? 9));
+---
+<Zaklad titulok="Zoznam prianí" popis="Hodinky, ktoré by som raz chcel mať, zoradené podľa priority." aktivne="priania">
+  <div class="hlavicka-stranky">
+    <div class="stitok">Zoradené podľa priority</div>
+    <h1 class="nadpis-stranky">Zoznam prianí</h1>
+    <p class="uvod">Hodinky, ktoré by som raz chcel mať. Ak hľadáš darček, tu je všetko na jednom mieste: cena, kde kúpiť a šírka remienka.</p>
+  </div>
+
+  {priania.length > 0 ? (
+    <ol class="zoznam">
+      {priania.map((h, i) => (
+        <li class="karta polozka">
+          <span class="poradie mono">{i + 1}</span>
+          <a href={`/hodinky/${h.id}/`} class="obrazok" aria-hidden="true" tabindex="-1">
+            {h.data.fotky.length > 0
+              ? <img src={h.data.fotky[0]} alt="" loading="lazy" />
+              : <Cifernik farba={h.data.farba} luneta={h.data.luneta} chrono={h.data.styl === 'Chronograf'} velkost="96" />}
+          </a>
+          <div class="text">
+            <span class="znacka">{h.znacka.data.nazov}</span>
+            <a href={`/hodinky/${h.id}/`} class="model">{h.data.model}</a>
+            <span class="mono udaje">{[kratkeUdaje(h.data), h.data.sirkaTahu && `ťah ${h.data.sirkaTahu}mm`].filter(Boolean).join(' · ')}</span>
+          </div>
+          <div class="kupa">
+            {cena(h.data.cena) && <strong>cca {cena(h.data.cena)}</strong>}
+            {h.data.odkaz && <a class="tlacidlo" href={h.data.odkaz} rel="noopener">Kde kúpiť</a>}
+          </div>
+        </li>
+      ))}
+    </ol>
+  ) : <p class="prazdne karta">Zoznam prianí je zatiaľ prázdny.</p>}
+</Zaklad>
+
+<style>
+  .zoznam { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  .polozka { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding: 16px 20px; }
+  .poradie { font-size: 22px; color: var(--sekundovka); width: 28px; }
+  .obrazok { width: 96px; height: 96px; background: #ECECE8; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .obrazok img { width: 100%; height: 100%; object-fit: cover; }
+  .text { flex: 1 1 220px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .znacka { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grafit); }
+  .model { font-size: 22px; font-weight: 700; text-decoration: none; }
+  .udaje { font-size: 14px; color: var(--text-2); }
+  .kupa { display: flex; align-items: center; gap: 16px; font-size: 18px; }
+</style>

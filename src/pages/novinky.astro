@@ -1,0 +1,155 @@
+---
+import Zaklad from '../layouts/Zaklad.astro';
+import novinky from '../data/novinky.json';
+import zdroje from '../../scripts/zdroje.json';
+
+const clanky = [...novinky].sort((a, b) => new Date(b.datum) - new Date(a.datum));
+const [hlavny, ...ostatne] = clanky;
+
+function kedy(iso) {
+  const hod = Math.round((Date.now() - new Date(iso)) / 36e5);
+  if (hod < 1) return 'pred chvíľou';
+  if (hod < 24) return `pred ${hod} h`;
+  const dni = Math.round(hod / 24);
+  if (dni === 1) return 'včera';
+  return new Date(iso).toLocaleDateString('sk-SK');
+}
+const aktualizovane = clanky.length ? new Date(Math.max(...clanky.map((c) => new Date(c.pridane ?? c.datum)))).toLocaleDateString('sk-SK') : null;
+---
+<Zaklad titulok="Novinky" aktivne="novinky">
+  <div class="rozlozenie">
+    <div class="hlavny-stlpec">
+      <div class="hlavicka-stranky">
+        {aktualizovane && <div class="stitok">Aktualizované {aktualizovane}</div>}
+        <h1 class="nadpis-stranky">Novinky</h1>
+        <p class="uvod">Čo sa deje vo svete hodiniek, zhrnuté po slovensky. Celý článok je vždy na pôvodnom webe.</p>
+      </div>
+
+      {clanky.length > 0 && (
+        <div class="filtre" id="filtre-noviniek" hidden>
+          <button type="button" data-f="" aria-pressed="true">Všetko</button>
+          <button type="button" data-f="vkus" aria-pressed="false">Sedí k môjmu vkusu</button>
+          <button type="button" data-f="mikro" aria-pressed="false">Iba mikroznačky</button>
+        </div>
+      )}
+
+      {hlavny ? (
+        <div class="clanky" id="clanky">
+          <article class="karta hlavny" data-vkus={String(!!hlavny.sediKVkusu)} data-mikro={String(!!hlavny.mikroznacka)}>
+            {hlavny.obrazok && <img src={hlavny.obrazok} alt="" referrerpolicy="no-referrer" loading="lazy" />}
+            <div class="text">
+              <div class="meta">
+                {hlavny.sediKVkusu && <span class="lume">Sedí k vkusu</span>}
+                <span>{hlavny.zdroj} · {kedy(hlavny.datum)}</span>
+              </div>
+              <h2>{hlavny.titulok}</h2>
+              <p class="serif zhrnutie">{hlavny.zhrnutie}</p>
+              {hlavny.preco && <p class="preco"><strong>Prečo ma to zaujme:</strong> {hlavny.preco}</p>}
+              <div><a class="tlacidlo" href={hlavny.odkaz} rel="noopener">Prečítať originál</a></div>
+            </div>
+          </article>
+          {ostatne.map((c) => (
+            <article class="riadok-clanku" data-vkus={String(!!c.sediKVkusu)} data-mikro={String(!!c.mikroznacka)}>
+              {c.obrazok
+                ? <img src={c.obrazok} alt="" referrerpolicy="no-referrer" loading="lazy" />
+                : <div class="bez-obrazka"></div>}
+              <div class="text">
+                <div class="meta">
+                  {c.sediKVkusu && <span class="lume">Sedí k vkusu</span>}
+                  <span>{c.zdroj} · {kedy(c.datum)}</span>
+                  {c.stitok && <span class="mono">{c.stitok}</span>}
+                </div>
+                <h3>{c.titulok}</h3>
+                <p class="serif">{c.zhrnutie}</p>
+                <a href={c.odkaz} rel="noopener">Prečítať originál</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : <p class="prazdne karta">Prvé novinky sa objavia po najbližšom rannom spracovaní.</p>}
+      <p class="prazdne" id="ziadne-novinky" hidden>Tento filter zatiaľ nič nenašiel.</p>
+    </div>
+
+    <aside class="bocny">
+      <section class="karta">
+        <h2 class="stitok">Sledované zdroje</h2>
+        <div class="riadky">
+          {zdroje.map((z) => <div class="riadok"><span>{z.nazov}</span></div>)}
+        </div>
+      </section>
+      <section class="tmava ako">
+        <h2 class="stitok">Ako to funguje</h2>
+        <p>Každé ráno sa stiahnu nové články zo zdrojov. Claude k nim napíše krátke zhrnutie po slovensky a označí tie, ktoré sedia k profilu vkusu.</p>
+      </section>
+    </aside>
+  </div>
+</Zaklad>
+
+<script>
+  const f = document.getElementById('filtre-noviniek');
+  const polozky = [...document.querySelectorAll('#clanky > article')];
+  const nic = document.getElementById('ziadne-novinky');
+  if (f && polozky.length) {
+    f.hidden = false;
+    f.addEventListener('click', (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      f.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      let n = 0;
+      polozky.forEach((p) => {
+        const ok = !b.dataset.f || p.dataset[b.dataset.f] === 'true';
+        p.hidden = !ok;
+        if (ok) n++;
+      });
+      nic.hidden = n > 0;
+    });
+  }
+</script>
+
+<style>
+  .rozlozenie { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+  .hlavny-stlpec { flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 32px; }
+  .bocny { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+  .bocny section { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .ako p { margin: 0; font-size: 15px; line-height: 1.55; color: #C9CCC6; }
+  .filtre {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 0;
+    border-top: 1px solid var(--atrament);
+    border-bottom: 1px solid var(--linka);
+    margin-bottom: -16px;
+  }
+  .filtre[hidden] { display: none; }
+  .filtre button {
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 22px;
+    border: 1.5px solid var(--linka);
+    background: transparent;
+    color: var(--atrament);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .filtre button[aria-pressed='true'] { background: var(--atrament); border-color: var(--atrament); color: var(--cifernik); }
+  .clanky { display: flex; flex-direction: column; }
+  .clanky > [hidden] { display: none; }
+  .hlavny { display: flex; flex-wrap: wrap; overflow: hidden; margin-bottom: 8px; }
+  .hlavny img { flex: 1 1 280px; min-height: 240px; max-height: 360px; object-fit: cover; }
+  .hlavny .text { flex: 1 1 340px; padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .hlavny h2 { font-size: 30px; line-height: 1.15; letter-spacing: -0.01em; }
+  .hlavny .zhrnutie { margin: 0; font-size: 18px; line-height: 1.55; }
+  .preco { margin: 0; font-size: 15px; color: var(--text-2); }
+  .preco strong { color: var(--atrament); }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--grafit); }
+  .lume { display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 12px; background: var(--lume); color: var(--atrament); font-weight: 700; }
+  .riadok-clanku { display: flex; flex-wrap: wrap; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--linka); }
+  .riadok-clanku img, .bez-obrazka { width: 132px; height: 96px; object-fit: cover; border-radius: 4px; background: var(--plocha); flex-shrink: 0; }
+  .riadok-clanku .text { flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .riadok-clanku h3 { font-size: 21px; line-height: 1.25; }
+  .riadok-clanku p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--text-2); }
+  .riadok-clanku a { font-size: 14px; font-weight: 600; }
+</style>

@@ -1,0 +1,158 @@
+:root {
+  --cifernik: #F3F3F0;
+  --atrament: #131615;
+  --grafit: #5A615E;
+  --text-2: #3A403D;
+  --linka: #D9DBD6;
+  --plocha: #E6E7E2;
+  --biela: #FFFFFF;
+  --sekundovka: #C8461A;
+  --lume: #CFF27A;
+
+  --sans: 'Helvetica Neue', 'Segoe UI', system-ui, sans-serif;
+  --serif: 'Iowan Old Style', Charter, 'Sitka Text', Georgia, serif;
+  --mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, monospace;
+
+  --sirka: 1280px;
+  --okraj: clamp(16px, 4vw, 48px);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--cifernik);
+  color: var(--atrament);
+  font-family: var(--sans);
+  line-height: 1.5;
+}
+
+a { color: var(--atrament); }
+a:hover { color: var(--sekundovka); }
+
+img { max-width: 100%; display: block; }
+
+.obal {
+  max-width: var(--sirka);
+  margin: 0 auto;
+  padding-left: var(--okraj);
+  padding-right: var(--okraj);
+}
+
+.stitok {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grafit);
+}
+
+.mono { font-family: var(--mono); }
+.serif { font-family: var(--serif); }
+
+h1, h2, h3 { margin: 0; line-height: 1.1; }
+
+.nadpis-stranky {
+  font-size: clamp(44px, 7vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.uvod {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--text-2);
+  max-width: 680px;
+}
+
+.hlavicka-stranky {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tlacidlo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 4px;
+  border: 1.5px solid var(--atrament);
+  background: var(--atrament);
+  color: var(--cifernik);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tlacidlo:hover { color: var(--cifernik); background: #2A2F2D; }
+.tlacidlo.obrys { background: transparent; color: var(--atrament); }
+.tlacidlo.obrys:hover { background: var(--biela); }
+
+.stav {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid var(--atrament);
+  background: var(--biela);
+  color: var(--atrament);
+  white-space: nowrap;
+}
+.stav-chcem { background: var(--sekundovka); border-color: var(--sekundovka); color: #FFFFFF; }
+.stav-mam { background: var(--atrament); color: var(--cifernik); }
+
+.karta {
+  background: var(--biela);
+  border: 1px solid var(--linka);
+  border-radius: 4px;
+}
+
+.tmava {
+  background: var(--atrament);
+  color: var(--cifernik);
+  border-radius: 4px;
+}
+.tmava .stitok { color: var(--lume); }
+
+.mriezka {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 24px;
+}
+
+.riadky { display: flex; flex-direction: column; }
+.riadok {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--linka);
+  font-size: 15px;
+}
+.riadok > :first-child { color: var(--grafit); }
+.riadok > :last-child { text-align: right; }
+
+.prazdne {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--grafit);
+  font-size: 17px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
