@@ -25,6 +25,8 @@ const text = (v) => {
   if (Array.isArray(v)) return text(v[0]);
   return text(v['#text'] ?? '');
 };
+// Pomlčky na webe nepoužívame, iba spojovník.
+const bezPomlciek = (s) => s.replace(/\s*[–—]\s*/g, ' - ');
 const zoznam = (v) => (v == null ? [] : Array.isArray(v) ? v : [v]);
 
 function bezHtml(s) {
@@ -222,12 +224,12 @@ async function main() {
         pridane,
         obrazok: n.obrazok,
         povodnyTitulok: n.povodnyTitulok,
-        titulok: c.titulok,
-        zhrnutie: c.zhrnutie,
+        titulok: bezPomlciek(c.titulok),
+        zhrnutie: bezPomlciek(c.zhrnutie),
         stitok: c.stitok,
         mikroznacka: c.mikroznacka,
         sediKVkusu: c.sediKVkusu,
-        preco: c.preco || null,
+        preco: bezPomlciek(c.preco) || null,
       };
     });
 
