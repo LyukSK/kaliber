@@ -8,6 +8,7 @@ strojcek: Seagull ST1901
 pohon: ručný nátah
 cifernik: kávové farby Cappuccino, Matcha Latte a Iced Americano
 farba: "#C9A882"
+fotky: ["https://sprudge.com/wp-content/uploads/2026/10/coffee-in-motion-chronograph.jpg"]
 odkaz: https://www.kickstarter.com/projects/chronofuns/coffee-watch-in-motion-mechanical-chronograph-st-1901
 obchod: Kickstarter
 dostupnost: kickstarter

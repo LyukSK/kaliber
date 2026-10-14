@@ -34,6 +34,8 @@ a:hover { color: var(--sekundovka); }
 
 img { max-width: 100%; display: block; }
 
+[hidden] { display: none !important; }
+
 .obal {
   max-width: var(--sirka);
   margin: 0 auto;
