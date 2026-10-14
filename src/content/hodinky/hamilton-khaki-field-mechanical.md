@@ -1,17 +1,22 @@
 ---
 znacka: hamilton
-model: Khaki Field Mechanical 38
-referencia: H69419933
+model: Khaki Field Mechanical 38 Green
+referencia: H69439363
 stav: mam
 styl: Field
 priemer: 38
+sirkaTahu: 20
 puzdro: nerezová oceľ
-strojcek: ETA 2804-2
+sklicko: zafírové
+vodotesnost: 50
+strojcek: Hamilton H-50
 pohon: ručný nátah
-rezervaChodu: 46
-cifernik: čierny s 24h stupnicou, dátum na 3
+rezervaChodu: 80
+cifernik: zelený matný, arabské číslice
 remienok: zelený textilný
-farba: "#1A1C1B"
-fotky: ["https://cdn.watchbase.com/watch/hamilton/khaki-field/h69419933-14.jpg"]
+farba: "#2E3A2C"
+fotky: ["https://cdn.watchbase.com/watch/hamilton/khaki-field/h69439363-e2.jpg"]
+odkaz: https://www.hodinky-365.sk/hamilton-khaki-field-mechanical-h69439363-x1184000
+obchod: hodinky-365.sk
 pridane: 2026-10-14
 ---
