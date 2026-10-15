@@ -14,6 +14,10 @@ Najčastejšia úloha: používateľ pošle odkaz (e-shop, Kickstarter, článok
 
 Stav: `chcem` (zoznam prianí), `inspiracia`, `mam` (vlastním). Ak používateľ stav nepovie, použi `chcem`.
 
+### Pridanie z návrhov
+
+Pokyn „Pridaj z návrhov do zoznamu prianí: <značka> <model> <odkaz>“ pochádza z tlačidla na stránke Môj vkus. Spracuj ho rovnako ako pridanie z odkazu, so stavom `chcem`. Údaje z `src/data/vkus.json` (cena, fotka, krajina) použi ako východisko, ale technické údaje over na stránke. Potom ten návrh z `navrhy` vo `vkus.json` odstráň, aby sa na stránke neukazoval dvakrát (v `historiaNavrhov` ho nechaj).
+
 ### Polia hodiniek
 
 - Čísla bez jednotiek: `priemer`, `hrubka`, `lugToLug`, `sirkaTahu` v mm, `vodotesnost` v m, `rezervaChodu` v h, `cena` v eurách (cca, pri inej mene prepočítaj a pôvodnú cenu daj do `cenaPovodna`, napríklad `$950` alebo `£525`).

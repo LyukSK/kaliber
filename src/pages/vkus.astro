@@ -97,6 +97,11 @@ const analyza = vkus.analyza ? new Date(vkus.analyza).toLocaleDateString('sk-SK'
                   {(n.cenaPovodna || n.cena) && <strong>{n.cenaPovodna ?? `cca ${cena(n.cena)}`}</strong>}
                   {(n.odkaz || n.web) && <a href={n.odkaz ?? n.web} rel="noopener" class="tlacidlo obrys">Pozrieť v obchode</a>}
                 </div>
+                {n.model && n.odkaz && (
+                  <button type="button" class="tlacidlo do-wishlistu" data-pokyn={`Pridaj z návrhov do zoznamu prianí: ${n.znacka} ${n.model} ${n.odkaz}`}>
+                    Pridať do wishlistu
+                  </button>
+                )}
               </div>
             </article>
           ))}
@@ -104,9 +109,45 @@ const analyza = vkus.analyza ? new Date(vkus.analyza).toLocaleDateString('sk-SK'
       )
       : <p class="prazdne karta">Prvé návrhy pribudnú pri najbližšom týždennom spracovaní.</p>}
   </section>
+  <p class="hlaska" id="hlaska" role="status" hidden>Pokyn je skopírovaný. Vlož ho do Claude Code a hodinky pribudnú v zozname prianí.</p>
 </Zaklad>
 
+<script>
+  const hlaska = document.getElementById('hlaska');
+  let casovac;
+  document.querySelectorAll('.do-wishlistu').forEach((b) => {
+    b.addEventListener('click', async () => {
+      const pokyn = b.dataset.pokyn;
+      try {
+        await navigator.clipboard.writeText(pokyn);
+        hlaska.textContent = 'Pokyn je skopírovaný. Vlož ho do Claude Code a hodinky pribudnú v zozname prianí.';
+      } catch {
+        hlaska.textContent = `Skopíruj a vlož do Claude Code: ${pokyn}`;
+      }
+      hlaska.hidden = false;
+      clearTimeout(casovac);
+      casovac = setTimeout(() => (hlaska.hidden = true), 6000);
+    });
+  });
+</script>
+
 <style>
+  .do-wishlistu { width: 100%; }
+  .hlaska {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    margin: 0 auto;
+    max-width: 560px;
+    padding: 16px 20px;
+    background: var(--atrament);
+    color: var(--cifernik);
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 1.45;
+    z-index: 10;
+  }
   .zhrnutie { padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 16px; }
   .zhrnutie p { margin: 0; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.4; max-width: 980px; }
   .statistiky { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
