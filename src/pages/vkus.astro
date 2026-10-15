@@ -94,11 +94,11 @@ const analyza = vkus.analyza ? new Date(vkus.analyza).toLocaleDateString('sk-SK'
                 )}
                 <p class="serif">{n.preco}</p>
                 <div class="paticka">
-                  {(n.cenaPovodna || n.cena) && <strong>{n.cenaPovodna ?? `cca ${cena(n.cena)}`}</strong>}
+                  {n.cena && <strong>cca {cena(n.cena)}</strong>}
                   {(n.odkaz || n.web) && <a href={n.odkaz ?? n.web} rel="noopener" class="tlacidlo obrys">Pozrieť v obchode</a>}
                 </div>
                 {n.model && n.odkaz && (
-                  <button type="button" class="tlacidlo do-wishlistu" data-pokyn={`Pridaj z návrhov do zoznamu prianí: ${n.znacka} ${n.model} ${n.odkaz}`}>
+                  <button type="button" class="tlacidlo do-wishlistu len-majitel" data-pokyn={`Pridaj z návrhov do zoznamu prianí: ${n.znacka} ${n.model} ${n.odkaz}`}>
                     Pridať do wishlistu
                   </button>
                 )}

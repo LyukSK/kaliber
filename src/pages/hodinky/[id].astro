@@ -61,8 +61,8 @@ const datum = d.pridane.toLocaleDateString('sk-SK');
           <div class="stitok">Kde kúpiť</div>
           <div class="riadky">
             <div class="riadok"><span>Obchod</span><a href={d.odkaz} rel="noopener">{d.obchod ?? domena}</a></div>
-            {(d.cenaPovodna || cena(d.cena)) && (
-              <div class="riadok"><span>Cena</span><span>{d.cenaPovodna ?? `cca ${cena(d.cena)}`}{d.cenaPovodna && cena(d.cena) && !d.cenaPovodna.includes('€') && <span class="prepocet"> (cca {cena(d.cena)})</span>}</span></div>
+            {cena(d.cena) && (
+              <div class="riadok"><span>Cena</span><span>cca {cena(d.cena)}{d.cenaPovodna && !d.cenaPovodna.includes('€') && <span class="prepocet"> ({d.cenaPovodna} v obchode)</span>}</span></div>
             )}
             {d.dostupnost && (
               <div class="riadok"><span>Dostupnosť</span><span class={`dostupnost dostupnost-${d.dostupnost === 'skladom' ? 'ano' : d.dostupnost === 'vypredané' ? 'nie' : 'inak'}`}>{DOSTUPNOST[d.dostupnost]}</span></div>

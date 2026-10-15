@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
 
-const { titulok, popis = 'Osobný archív mikroznačiek hodiniek. Hodinky, ktoré sa mi páčia, a novinky z hodinkového sveta po slovensky.', aktivne } = Astro.props;
+const { titulok, noindex = false, popis = 'Osobný archív mikroznačiek hodiniek. Hodinky, ktoré sa mi páčia, a novinky z hodinkového sveta po slovensky.', aktivne } = Astro.props;
 const menu = [
   { href: '/', text: 'Zbierka', id: 'zbierka' },
   { href: '/znacky/', text: 'Značky', id: 'znacky' },
@@ -18,7 +18,14 @@ const menu = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{titulok ? `${titulok} · Kaliber` : 'Kaliber'}</title>
     <meta name="description" content={popis} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Režim majiteľa: ovládacie prvky vidí iba prehliadač, v ktorom ho zapneš na /majitel/.
+      try {
+        if (localStorage.getItem('kaliber-majitel') === '1') document.documentElement.classList.add('majitel');
+      } catch {}
+    </script>
   </head>
   <body>
     <header class="hlavicka">

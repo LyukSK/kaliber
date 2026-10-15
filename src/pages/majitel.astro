@@ -1,0 +1,43 @@
+---
+import Zaklad from '../layouts/Zaklad.astro';
+---
+<Zaklad titulok="Režim majiteľa" noindex>
+  <div class="hlavicka-stranky">
+    <div class="stitok">Iba pre mňa</div>
+    <h1 class="nadpis-stranky">Režim majiteľa</h1>
+    <p class="uvod">V režime majiteľa sa na webe ukazujú ovládacie prvky, napríklad tlačidlo Pridať do wishlistu pri návrhoch. Zapína sa zvlášť v každom prehliadači a ostatní návštevníci ich nevidia.</p>
+  </div>
+
+  <div class="karta panel">
+    <p class="stav-rezimu" id="stav-rezimu">Režim majiteľa je vypnutý.</p>
+    <button type="button" class="tlacidlo" id="prepinac">Zapnúť režim majiteľa</button>
+  </div>
+</Zaklad>
+
+<script>
+  const stav = document.getElementById('stav-rezimu');
+  const prepinac = document.getElementById('prepinac');
+
+  function zobraz() {
+    const zapnuty = document.documentElement.classList.contains('majitel');
+    stav.textContent = zapnuty ? 'Režim majiteľa je zapnutý v tomto prehliadači.' : 'Režim majiteľa je vypnutý.';
+    prepinac.textContent = zapnuty ? 'Vypnúť režim majiteľa' : 'Zapnúť režim majiteľa';
+  }
+
+  prepinac.addEventListener('click', () => {
+    const zapnut = !document.documentElement.classList.contains('majitel');
+    try {
+      if (zapnut) localStorage.setItem('kaliber-majitel', '1');
+      else localStorage.removeItem('kaliber-majitel');
+    } catch {}
+    document.documentElement.classList.toggle('majitel', zapnut);
+    zobraz();
+  });
+
+  zobraz();
+</script>
+
+<style>
+  .panel { padding: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; max-width: 680px; }
+  .stav-rezimu { margin: 0; font-size: 17px; }
+</style>

@@ -20,7 +20,7 @@ Pokyn „Pridaj z návrhov do zoznamu prianí: <značka> <model> <odkaz>“ poch
 
 ### Polia hodiniek
 
-- Čísla bez jednotiek: `priemer`, `hrubka`, `lugToLug`, `sirkaTahu` v mm, `vodotesnost` v m, `rezervaChodu` v h, `cena` v eurách (cca, pri inej mene prepočítaj a pôvodnú cenu daj do `cenaPovodna`, napríklad `$950` alebo `£525`).
+- Čísla bez jednotiek: `priemer`, `hrubka`, `lugToLug`, `sirkaTahu` v mm, `vodotesnost` v m, `rezervaChodu` v h, `cena` vždy v eurách (cca, pri inej mene prepočítaj aktuálnym kurzom; pôvodnú cenu daj do `cenaPovodna`, napríklad `$950` alebo `£525`). Na webe sa ceny ukazujú vždy v eurách.
 - `styl`: Diver, Field, Chronograf, GMT, Dress, Športové, Pilotné, Integrovaný náramok, Iné.
 - `pohon`: automat, ručný nátah, kremeň, mechakvarc, solár.
 - Kde kúpiť: `odkaz`, `obchod` (doména obchodu), `dostupnost` (skladom, vypredané, predobjednávka, čoskoro, kickstarter) a `overene` (dátum overenia). Pri Shopify obchodoch zistíš dostupnosť z `<url produktu>.js`, pole `available`.

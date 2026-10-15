@@ -2,6 +2,7 @@
 znacka: sternglas
 model: Hamburg silver
 stav: mam
+cena: 279
 styl: Dress
 priemer: 42
 hrubka: 6

@@ -155,7 +155,7 @@ Ku každému článku vráť:
 - preco: ak sediKVkusu, jedna krátka veta, prečo by to majiteľa zaujalo. Inak prázdny reťazec.
 - duplikat: true, ak článok opisuje tú istú novinku ako článok s nižším id v tomto zozname.
 
-Píš prirodzenou slovenčinou. Nepoužívaj pomlčky ani dlhé pomlčky, iba spojovník, ak je nutný. Bez emoji. Jednotky a percentá píš bez medzery (39mm, 200m, 42h, 20%). Ceny v pôvodnej mene.`;
+Píš prirodzenou slovenčinou. Nepoužívaj pomlčky ani dlhé pomlčky, iba spojovník, ak je nutný. Bez emoji. Jednotky a percentá píš bez medzery (39mm, 200m, 42h, 20%). Ceny vždy prepočítaj na eurá a píš ich približne, napríklad cca 860€.`;
 
 async function main() {
   const existujuce = JSON.parse(await readFile(SUBOR_NOVINIEK, 'utf8'));

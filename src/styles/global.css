@@ -36,6 +36,9 @@ img { max-width: 100%; display: block; }
 
 [hidden] { display: none !important; }
 
+/* Ovládacie prvky iba pre majiteľa, pozri /majitel/ */
+html:not(.majitel) .len-majitel { display: none !important; }
+
 .obal {
   max-width: var(--sirka);
   margin: 0 auto;
