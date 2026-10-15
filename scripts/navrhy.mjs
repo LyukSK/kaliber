@@ -71,6 +71,7 @@ Pravidlá výberu:
 - Hľadaj aktuálne predávané konkrétne modely, nie iba značky. Každý návrh musí mať funkčný odkaz na produktovú stránku výrobcu alebo oficiálneho predajcu.
 - Prednostne európske značky (napríklad Francúzsko, Nemecko, Švajčiarsko, Veľká Británia, Dánsko, Taliansko, Česko, Poľsko). Najviac jeden návrh smie byť mimo Európy.
 - Nenavrhuj značky, ktoré už sú v zbierke, ani modely zo zoznamu predchádzajúcich návrhov.
+- Každá značka smie byť v návrhoch najviac raz, chcem pestrý výber.
 - Drž sa vkusu podľa zbierky: veľkosti, štýly, farby ciferníkov, typ strojčeka a cenové pásmo. Jeden návrh môže byť odvážnejší, ale stále zdôvodnený.
 - Údaje (cena, priemer, strojček) over na stránke cez web_fetch. Čo neoveríš, nepíš.
 
@@ -78,8 +79,8 @@ Na konci vráť iba JSON v značkách <json></json> v tomto tvare:
 {"skratka": "...", "zhrnutie": "...", "navrhy": [{"znacka": "...", "krajina": "...", "model": "...", "styl": "...", "priemer": 39, "pohon": "automat", "cena": 650, "cenaPovodna": "£560", "odkaz": "https://...", "preco": "..."}]}
 
 - skratka: jeden riadok o vkuse (veľkosť, štýl, strojček, typická cena).
-- zhrnutie: 3 až 4 vety po slovensky o vkuse majiteľa podľa celej zbierky.
-- navrhy: presne ${POCET + 2} kandidátov zoradených od najlepšieho. cena je približne v eurách (číslo), cenaPovodna v mene obchodu, krajina po slovensky, pohon jedno z: automat, ručný nátah, kremeň, mechakvarc, solár. preco sú 1 až 2 vety po slovensky, prečo sa hodia k jeho zbierke, pokojne s odkazom na konkrétne hodinky, ktoré má.
+- zhrnutie: 3 až 4 vety po slovensky o vkuse podľa celej zbierky, v druhej osobe (napríklad: Páčia sa ti kompaktné hodinky...).
+- navrhy: presne ${POCET + 2} kandidátov zoradených od najlepšieho. cena je približne v eurách (číslo), cenaPovodna v mene obchodu, krajina po slovensky, pohon jedno z: automat, ručný nátah, kremeň, mechakvarc, solár. preco sú 1 až 2 vety po slovensky, prečo sa hodia k zbierke, pokojne s odkazom na konkrétne hodinky v nej. Nepíš o majiteľovi v tretej osobe, píš bez oslovenia (napríklad: Sadne k Beaucroft The Arc...).
 
 Píš prirodzenou slovenčinou, bez pomlčiek (iba spojovník, ak je nutný), bez emoji, jednotky bez medzery (39mm, 200m).`;
 
@@ -134,6 +135,7 @@ async function main() {
     if (navrhy.length >= POCET) break;
     if (!n.znacka || !n.model || !/^https:\/\//.test(n.odkaz ?? '')) continue;
     if (vZbierke.has(n.znacka.toLowerCase())) continue;
+    if (navrhy.some((x) => x.znacka.toLowerCase() === n.znacka.toLowerCase())) continue;
     const overenie = await overOdkaz(n.odkaz);
     if (!overenie) {
       console.warn(`Preskakujem ${n.znacka} ${n.model}: odkaz nefunguje.`);
