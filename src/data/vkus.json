@@ -1,19 +1,79 @@
 {
-  "analyza": "2026-10-14",
-  "skratka": "38 až 40mm, výrazné farebné ciferníky s vintage nádychom, automat, typicky 400 až 800€",
-  "zhrnutie": "Páčia sa ti kompaktné hodinky, najčastejšie 38 až 40mm, s ciferníkom, ktorý má charakter: zelená, oranžový fumé, perleť, smalt alebo dvojfarebný tuxedo. Štýlom sa nedržíš jednej kategórie, máš diver, field, dress aj GMT, ale spája ich vintage nádych a poctivé spracovanie. Takmer všetko je automat, prevažne Miyota alebo Sellita, a najčastejšie sa pohybuješ okolo 400 až 800€. Lákajú ťa aj hodinky s príbehom, napríklad pôvodné puzdrá zo 70. rokov alebo zákopové hodinky.",
+  "analyza": "2026-10-15",
+  "skratka": "36 až 40mm, retro a farebné ciferníky (modrá, zelená, lososová, pieskový odtieň), automat, najčastejšie 430 až 650€, výnimočne do 2000€",
+  "zhrnutie": "Majiteľ uprednostňuje menšie a stredné puzdrá okolo 36 až 40mm a výrazný ciferník, ktorý stojí na farbe, štruktúre alebo povrchu (lososový, zelený, žltý, perleťový, smaltovaný). Takmer všetko je automat, ručný nátah sa objaví pri poľných a chronografových kúskoch. Najčastejšie sa pohybuje v pásme 430 až 650€, no pri výnimočných kúskoch ide aj nad 1000€. Rád má európske mikroznačky s retro dizajnom a zároveň si pripustí aj Áziu a USA.",
   "navrhy": [
     {
-      "znacka": "Lorier",
-      "krajina": "USA",
-      "preco": "Malá newyorská značka s vintage proporciami a kompaktnými puzdrami. Sadne k tvojej záľube v hodinkách s retro nádychom za rozumnú cenu.",
-      "web": "https://lorier.com"
+      "znacka": "Farer",
+      "krajina": "Veľká Británia",
+      "model": "Venture",
+      "styl": "Dress",
+      "priemer": 39,
+      "pohon": "automat",
+      "cena": 1260,
+      "cenaPovodna": "£1095",
+      "odkaz": "https://farer.com/products/venture",
+      "obrazok": "https://farer.com/cdn/shop/files/BLUE-SUEDE-tan_949f79dc-427b-49a5-836d-b249fadcad28.png?v=1764932067",
+      "preco": "Metalický modrý lakovaný ciferník a 39mm puzdro sedia medzi Baltic Aquascaphe a Beaucroft The Arc. Strojček La Joux-Perret G101 a britský dizajn sú v cenovej lige Serica 7505."
     },
     {
-      "znacka": "Furlan Marri",
+      "znacka": "Nivada Grenchen",
       "krajina": "Švajčiarsko",
-      "preco": "Elegantné hodinky s farebnými ciferníkmi a vintage dizajnom. Ak sa ti páči Beaucroft Arc, pravdepodobne ťa zaujme aj ich farebná paleta.",
-      "web": "https://furlanmarri.com"
+      "model": "Super Antarctic Blue",
+      "styl": "Dress",
+      "priemer": 38,
+      "pohon": "automat",
+      "cena": 870,
+      "cenaPovodna": "$945",
+      "odkaz": "https://nivadagrenchenofficial.com/collections/antarctic-watches/products/super-antarctic-blue",
+      "obrazok": "https://nivadagrenchenofficial.com/cdn/shop/files/super-antarctic-blue-blue-leather-front.png?v=1790859601&width=1200",
+      "preco": "Modrý slnečný ciferník s dátumom a 38mm puzdro pripomínajú Citizen Tsuyosa a Brew Metric. Retro dizajn na ocelovom náramku je pre zbierku bezpečná voľba."
+    },
+    {
+      "znacka": "Nivada Grenchen",
+      "krajina": "Švajčiarsko",
+      "model": "Antarctic Spider Salmon",
+      "styl": "Retro",
+      "priemer": 38,
+      "pohon": "automat",
+      "cena": 870,
+      "cenaPovodna": "$945",
+      "odkaz": "https://nivadagrenchenofficial.com/collections/antarctic-watches/products/antarctic-spider-salmon-38mm",
+      "obrazok": "https://nivadagrenchenofficial.com/cdn/shop/files/antarctic-spider-salmon-black-racing-front.png?v=1790862288&width=1200",
+      "preco": "Lososový ciferník s lúčovým vzorom nadväzuje na Studio Underd0g 03 Series Salm0n, ale za zlomok ceny. Veľkosť 38mm je presne v jeho obľúbenom rozsahu."
+    },
+    {
+      "znacka": "Farer",
+      "krajina": "Veľká Británia",
+      "model": "Alert",
+      "styl": "Dress",
+      "priemer": 39,
+      "pohon": "automat",
+      "cena": 1260,
+      "cenaPovodna": "£1095",
+      "odkaz": "https://farer.com/products/alert",
+      "obrazok": "https://farer.com/cdn/shop/files/RED-SUEDE-grey_b6c62df7-631f-4ee0-8c59-860ffd9b57e7.png?v=1783343466",
+      "preco": "Červený lakovaný ciferník je odvážnejší krok, no stále v jeho farebnom svete ako oranžová Beaucroft The Arc a lososový Underd0g. Rozmery 39mm s rozstupom ušiek 45mm sedia k jeho zbierke."
+    },
+    {
+      "znacka": "Unimatic",
+      "krajina": "Taliansko",
+      "model": "Modello Uno UC1 Classic",
+      "styl": "Diver",
+      "priemer": 40,
+      "pohon": "automat",
+      "cena": 640,
+      "cenaPovodna": "€640",
+      "odkaz": "https://www.unimaticwatches.com/uc1/",
+      "obrazok": "https://www.unimaticwatches.com/cdn/shop/files/UC1-Hero.png?v=1785834803&width=1200",
+      "preco": "Taliansky diver s 40mm puzdrom a cenou okolo 640€ sedí k Baltic Aquascaphe a Spinnaker Fleuss. Čierny matný ciferník s bledozelenou svietivou vrstvou je pokojnejší doplnok k jeho farebným diverom."
     }
+  ],
+  "historiaNavrhov": [
+    "Farer Venture",
+    "Nivada Grenchen Super Antarctic Blue",
+    "Nivada Grenchen Antarctic Spider Salmon",
+    "Farer Alert",
+    "Unimatic Modello Uno UC1 Classic"
   ]
 }
