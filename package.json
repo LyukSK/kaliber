@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "novinky": "node scripts/novinky.mjs"
+    "novinky": "node scripts/novinky.mjs",
+    "navrhy": "node scripts/navrhy.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.134.0",

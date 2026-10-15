@@ -36,6 +36,6 @@ Tri odseky: kto a odkiaľ, čím je značka známa, a sekcia `## Prečo stojí z
 
 ## Ďalšie
 
-- `src/data/vkus.json`: slovné zhrnutie vkusu, skratka a návrhy nových značiek. Aktualizuj, keď pribudne viac hodiniek alebo keď o to používateľ požiada.
+- `src/data/vkus.json`: slovné zhrnutie vkusu, skratka a 5 návrhov konkrétnych hodiniek. Každý pondelok ho prepíše `scripts/navrhy.mjs` (GitHub Actions, Claude API s web search, prednostne európske značky). Ručne ho uprav iba na požiadanie.
 - `src/data/novinky.json` generuje každé ráno `scripts/novinky.mjs` (GitHub Actions, Claude API). Ručne ho needituj.
 - Na webe iba natívne systémové fonty, žiadne externé fonty.

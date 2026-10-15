@@ -1,5 +1,6 @@
 ---
 import Zaklad from '../layouts/Zaklad.astro';
+import Cifernik from '../components/Cifernik.astro';
 import { nacitajHodinky, cislo, cena, hodiniek } from '../lib/hodinky.js';
 import vkus from '../data/vkus.json';
 
@@ -70,23 +71,38 @@ const analyza = vkus.analyza ? new Date(vkus.analyza).toLocaleDateString('sk-SK'
 
   <section class="navrhy">
     <div class="hlavicka-stranky">
-      <h2 class="nadpis-sekcie">Návrhy</h2>
-      <p class="uvod">Značky, ktoré v zbierke ešte nie sú a podľa profilu by ma mohli zaujať.</p>
+      <h2 class="nadpis-sekcie">Návrhy na tento týždeň</h2>
+      <p class="uvod">Konkrétne hodinky, hlavne od európskych značiek, ktoré v zbierke ešte nie sú a podľa profilu by ma mohli zaujať. Obnovujú sa každý pondelok.</p>
     </div>
     {vkus.navrhy.length > 0
       ? (
         <div class="mriezka">
           {vkus.navrhy.map((n) => (
             <article class="karta navrh">
-              <div class="stitok">{n.krajina}</div>
-              <h3>{n.znacka}</h3>
-              <p class="serif">{n.preco}</p>
-              {n.web && <a href={n.web} rel="noopener" class="tlacidlo obrys">Pozrieť web</a>}
+              {n.model && (
+                <div class="foto">
+                  {n.obrazok
+                    ? <img src={n.obrazok} alt="" loading="lazy" referrerpolicy="no-referrer" />
+                    : <Cifernik velkost="160" />}
+                </div>
+              )}
+              <div class="telo">
+                <div class="znacka"><span>{n.znacka}</span><span>{n.krajina}</span></div>
+                <h3>{n.model ?? n.znacka}</h3>
+                {n.model && (
+                  <div class="mono udaje">{[n.priemer && `${cislo(n.priemer)}mm`, n.pohon, n.styl].filter(Boolean).join(' · ')}</div>
+                )}
+                <p class="serif">{n.preco}</p>
+                <div class="paticka">
+                  {(n.cenaPovodna || n.cena) && <strong>{n.cenaPovodna ?? `cca ${cena(n.cena)}`}</strong>}
+                  {(n.odkaz || n.web) && <a href={n.odkaz ?? n.web} rel="noopener" class="tlacidlo obrys">Pozrieť v obchode</a>}
+                </div>
+              </div>
             </article>
           ))}
         </div>
       )
-      : <p class="prazdne karta">Prvé návrhy pribudnú, keď bude v zbierke aspoň {MIN} hodiniek.</p>}
+      : <p class="prazdne karta">Prvé návrhy pribudnú pri najbližšom týždennom spracovaní.</p>}
   </section>
 </Zaklad>
 
@@ -103,7 +119,13 @@ const analyza = vkus.analyza ? new Date(vkus.analyza).toLocaleDateString('sk-SK'
   .poznamka { margin: 0; font-size: 14px; color: var(--grafit); }
   .navrhy { display: flex; flex-direction: column; gap: 24px; border-top: 2px solid var(--atrament); padding-top: 40px; }
   .nadpis-sekcie { font-size: 40px; letter-spacing: -0.01em; }
-  .navrh { padding: 24px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
-  .navrh h3 { font-size: 28px; }
+  .navrh { display: flex; flex-direction: column; overflow: hidden; }
+  .navrh .foto { height: 240px; background: #ECECE8; display: flex; align-items: center; justify-content: center; }
+  .navrh .foto img { width: 100%; height: 100%; object-fit: contain; background: var(--biela); }
+  .navrh .telo { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1; }
+  .navrh .znacka { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grafit); }
+  .navrh h3 { font-size: 22px; line-height: 1.2; }
+  .navrh .udaje { font-size: 14px; color: var(--text-2); }
   .navrh p { margin: 0; font-size: 17px; line-height: 1.5; flex-grow: 1; }
+  .navrh .paticka { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--linka); }
 </style>

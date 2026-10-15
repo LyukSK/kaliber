@@ -4,9 +4,17 @@ on:
   push:
     branches: [main]
   schedule:
-    # Každé ráno o 5:00 UTC (7:00 v lete, 6:00 v zime)
+    # Novinky každé ráno o 5:00 UTC (7:00 v lete, 6:00 v zime)
     - cron: '0 5 * * *'
+    # Návrhy hodiniek každý pondelok o 6:00 UTC
+    - cron: '0 6 * * 1'
   workflow_dispatch:
+    inputs:
+      uloha:
+        description: Čo spustiť
+        type: choice
+        options: [novinky, navrhy, oboje]
+        default: novinky
 
 permissions:
   contents: write
@@ -34,16 +42,26 @@ jobs:
       - run: npm ci
 
       - name: Spracovať novinky
-        if: github.event_name != 'push'
+        if: github.event.schedule == '0 5 * * *' || (github.event_name == 'workflow_dispatch' && inputs.uloha != 'navrhy')
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npm run novinky
+
+      - name: Pripraviť návrhy hodiniek
+        if: github.event.schedule == '0 6 * * 1' || (github.event_name == 'workflow_dispatch' && inputs.uloha != 'novinky')
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npm run navrhy
+
+      - name: Uložiť zmeny dát
+        if: github.event_name != 'push'
         run: |
-          npm run novinky
-          if ! git diff --quiet src/data/novinky.json; then
+          if ! git diff --quiet src/data; then
             git config user.name "Kaliber"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add src/data/novinky.json
-            git commit -m "Novinky $(date -u +%Y-%m-%d)"
+            git add src/data
+            git commit -m "Aktualizácia dát $(date -u +%Y-%m-%d)"
+            git pull --rebase
             git push
           fi
 
