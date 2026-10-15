@@ -14,7 +14,7 @@ on:
         description: Čo spustiť
         type: choice
         options: [novinky, navrhy, oboje]
-        default: novinky
+        default: oboje
 
 permissions:
   contents: write
