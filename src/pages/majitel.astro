@@ -1,5 +1,9 @@
 ---
 import Zaklad from '../layouts/Zaklad.astro';
+
+// SHA-256 z "kaliber:" + heslo. Je to iba ľahký zámok na statickom webe, nie
+// skutočné zabezpečenie: režim majiteľa len zobrazuje tlačidlá, ktoré kopírujú pokyny.
+const HASH_HESLA = 'bf337cab6e09fe72c825b907829a8b5cad88ce5b19a58cb2d0fd7537d254bd04';
 ---
 <Zaklad titulok="Režim majiteľa" noindex>
   <div class="hlavicka-stranky">
@@ -8,29 +12,59 @@ import Zaklad from '../layouts/Zaklad.astro';
     <p class="uvod">V režime majiteľa sa na webe ukazujú ovládacie prvky, napríklad tlačidlo Pridať do wishlistu pri návrhoch. Zapína sa zvlášť v každom prehliadači a ostatní návštevníci ich nevidia.</p>
   </div>
 
-  <div class="karta panel">
-    <p class="stav-rezimu" id="stav-rezimu">Režim majiteľa je vypnutý.</p>
-    <button type="button" class="tlacidlo" id="prepinac">Zapnúť režim majiteľa</button>
+  <form class="karta panel" id="prihlasenie" data-hash={HASH_HESLA}>
+    <label for="heslo">Heslo</label>
+    <div class="riadok-formulara">
+      <input id="heslo" type="password" autocomplete="current-password" required />
+      <button type="submit" class="tlacidlo">Zapnúť režim majiteľa</button>
+    </div>
+    <p class="chyba" id="chyba" role="alert" hidden>Nesprávne heslo.</p>
+  </form>
+
+  <div class="karta panel" id="zapnuty" hidden>
+    <p class="stav-rezimu">Režim majiteľa je zapnutý v tomto prehliadači.</p>
+    <button type="button" class="tlacidlo obrys" id="vypnut">Vypnúť režim majiteľa</button>
   </div>
 </Zaklad>
 
 <script>
-  const stav = document.getElementById('stav-rezimu');
-  const prepinac = document.getElementById('prepinac');
+  const formular = document.getElementById('prihlasenie');
+  const zapnuty = document.getElementById('zapnuty');
+  const chyba = document.getElementById('chyba');
+  const pole = document.getElementById('heslo');
 
   function zobraz() {
-    const zapnuty = document.documentElement.classList.contains('majitel');
-    stav.textContent = zapnuty ? 'Režim majiteľa je zapnutý v tomto prehliadači.' : 'Režim majiteľa je vypnutý.';
-    prepinac.textContent = zapnuty ? 'Vypnúť režim majiteľa' : 'Zapnúť režim majiteľa';
+    const je = document.documentElement.classList.contains('majitel');
+    formular.hidden = je;
+    zapnuty.hidden = !je;
   }
 
-  prepinac.addEventListener('click', () => {
-    const zapnut = !document.documentElement.classList.contains('majitel');
+  async function hash(text) {
+    const data = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return [...new Uint8Array(data)].map((b) => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  formular.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if ((await hash('kaliber:' + pole.value)) !== formular.dataset.hash) {
+      chyba.hidden = false;
+      pole.select();
+      return;
+    }
     try {
-      if (zapnut) localStorage.setItem('kaliber-majitel', '1');
-      else localStorage.removeItem('kaliber-majitel');
+      localStorage.setItem('kaliber-majitel', '1');
     } catch {}
-    document.documentElement.classList.toggle('majitel', zapnut);
+    document.documentElement.classList.add('majitel');
+    chyba.hidden = true;
+    pole.value = '';
+    zobraz();
+  });
+
+  document.getElementById('vypnut').addEventListener('click', () => {
+    try {
+      localStorage.removeItem('kaliber-majitel');
+    } catch {}
+    document.documentElement.classList.remove('majitel');
     zobraz();
   });
 
@@ -38,6 +72,21 @@ import Zaklad from '../layouts/Zaklad.astro';
 </script>
 
 <style>
-  .panel { padding: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; max-width: 680px; }
+  .panel { padding: 24px; display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+  #zapnuty { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+  label { font-size: 14px; font-weight: 600; }
+  .riadok-formulara { display: flex; flex-wrap: wrap; gap: 12px; }
+  input {
+    flex: 1 1 200px;
+    min-height: 46px;
+    padding: 0 14px;
+    border: 1.5px solid var(--atrament);
+    border-radius: 4px;
+    background: var(--biela);
+    color: var(--atrament);
+    font: inherit;
+    font-size: 16px;
+  }
+  .chyba { margin: 0; color: var(--sekundovka); font-size: 15px; font-weight: 600; }
   .stav-rezimu { margin: 0; font-size: 17px; }
 </style>
