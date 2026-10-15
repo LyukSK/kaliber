@@ -2,6 +2,7 @@
 znacka: baltic
 model: Aquascaphe MK2 Warm Silver
 stav: chcem
+cena: 630
 styl: Diver
 priemer: 39.5
 hrubka: 12.9
@@ -19,6 +20,7 @@ farba: "#CFC8B8"
 luneta: "#22262B"
 odkaz: https://baltic-watches.com/en/products/aquascaphe-mk2-warm-silver
 obchod: baltic-watches.com
+cenaPovodna: od 630€
 overene: 2026-10-15
 pridane: 2026-10-15
 ---
