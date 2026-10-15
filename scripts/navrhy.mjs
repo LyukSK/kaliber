@@ -1,4 +1,4 @@
-// Týždenné návrhy: podľa zbierky nájde 5 konkrétnych hodiniek, hlavne od
+// Týždenné návrhy: podľa zbierky nájde 6 konkrétnych hodiniek, hlavne od
 // európskych značiek, ktoré v zbierke ešte nie sú. Claude hľadá cez web search,
 // skript potom overí odkazy, doplní fotky a zapíše src/data/vkus.json.
 //
@@ -11,7 +11,7 @@ import Anthropic from '@anthropic-ai/sdk';
 const KOREN = new URL('../', import.meta.url);
 const SUBOR_VKUSU = new URL('src/data/vkus.json', KOREN);
 const MODEL = process.env.KALIBER_MODEL ?? 'claude-sonnet-5-5';
-const POCET = 5;
+const POCET = 6;
 const MAX_POKRACOVANI = 6;
 const UA = 'Mozilla/5.0 (compatible; KaliberBot/1.0; +https://kaliber.kucerka.sk)';
 
