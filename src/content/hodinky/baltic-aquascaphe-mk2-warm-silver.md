@@ -18,10 +18,11 @@ cifernik: zrnitý teplý strieborný
 remienok: kaučukový remienok alebo oceľový náramok
 farba: "#CFC8B8"
 luneta: "#22262B"
-fotky: ["/fotky/baltic-aquascaphe-mk2-warm-silver.jpg"]
+fotky: ["https://cdn.shopify.com/s/files/1/0012/9299/2583/files/aquacsaphe-mk2-39-warm-silver-face-rubber-ws.png"]
 odkaz: https://baltic-watches.com/en/products/aquascaphe-mk2-warm-silver
 obchod: baltic-watches.com
-cenaPovodna: od 630€
+cenaPovodna: 630€
+dostupnost: skladom
 overene: 2026-10-15
 pridane: 2026-10-15
 ---
