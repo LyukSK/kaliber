@@ -5,5 +5,6 @@
   { "nazov": "Time+Tide", "url": "https://timeandtidewatches.com/feed/" },
   { "nazov": "aBlogtoWatch", "url": "https://www.ablogtowatch.com/feed/" },
   { "nazov": "Hodinkee", "url": "https://www.hodinkee.com/articles/rss.xml" },
-  { "nazov": "r/microbrandwatches", "url": "https://www.reddit.com/r/microbrandwatches/top/.rss?t=day", "max": 3 }
+  { "nazov": "r/microbrandwatches", "url": "https://www.reddit.com/r/microbrandwatches/top/.rss?t=day", "max": 3 },
+  { "nazov": "Hodinky 365", "url": "https://news.google.com/rss/search?q=site:hodinky-365.sk/blog&hl=sk&gl=SK&ceid=SK:sk", "max": 5, "lenTitulok": true, "vynechat": "^(Články autora|SÚŤAŽ)" }
 ]

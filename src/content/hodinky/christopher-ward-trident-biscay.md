@@ -19,6 +19,8 @@ luneta: "#1A1A1A"
 fotky: ["https://www.christopherward.com/dw/image/v2/BDWD_PRD/on/demandware.static/-/Sites-cw-master-catalog/default/dw5bccb156/images/WATCHES/C60-42C3H1-S0KW0-VT1/C60-42C3H1-S0KW0-VT1_Picture_1.jpg?sw=1200&sh=1200"]
 odkaz: https://www.christopherward.com/trident-biscay-automatic/C60-42C3H1-S0KW0-VT1.html
 obchod: christopherward.com
+cena: 1740
+cenaPovodna: 1 740€
 dostupnost: predobjednávka
 overene: 2026-10-14
 pridane: 2026-10-14

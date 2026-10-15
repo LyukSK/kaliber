@@ -168,6 +168,8 @@ async function main() {
     try {
       const polozky = (await stiahniZdroj(zdroj))
         .filter((p) => p.odkaz && !zname.has(p.odkaz) && new Date(p.datum).getTime() > hranica)
+        .filter((p) => !zdroj.vynechat || !new RegExp(zdroj.vynechat, 'i').test(p.povodnyTitulok))
+        .map((p) => (zdroj.lenTitulok ? { ...p, popis: '' } : p))
         .slice(0, zdroj.max ?? MAX_ZO_ZDROJA);
       console.log(`${zdroj.nazov}: ${polozky.length} nových`);
       kandidati.push(...polozky);
@@ -188,7 +190,7 @@ async function main() {
 
   const client = new Anthropic();
   const zoznamClankov = nove
-    .map((n, i) => `<clanok id="${i}">\nZdroj: ${n.zdroj}\nTitulok: ${n.povodnyTitulok}\nText: ${n.popis}\n</clanok>`)
+    .map((n, i) => `<clanok id="${i}">\nZdroj: ${n.zdroj}\nTitulok: ${n.povodnyTitulok}\n${n.popis ? `Text: ${n.popis}` : 'Text: k dispozícii je iba titulok, zhrnutie napíš jednou vetou výlučne podľa titulku.'}\n</clanok>`)
     .join('\n\n');
 
   const odpoved = await client.messages
