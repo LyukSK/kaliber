@@ -1,20 +1,85 @@
 {
   "analyza": "2026-10-19",
-  "skratka": "Kompaktné 35 až 40mm, retro a dress štýl, automat alebo ručný nátah, typicky 400 až 1200€",
-  "zhrnutie": "Páčia sa ti kompaktné hodinky okolo 36 až 40mm, od dress modelov cez field až po menšie divery. Preferuješ automat, no pri retro kúskoch si rád vezmeš aj ručný nátah, ako pri Hamilton Khaki Field Mechanical 38. Ciferníky sú teplé a výrazné, napríklad oranžový, lososový, pieskový alebo zelený, pričom často ide o patinovaný či ručne maľovaný vzhľad. Väčšina zbierky stojí 400 až 1000€, občas siahneš aj po dražšom a nezvyčajnom kúsku.",
+  "skratka": "Kompaktné 36 až 40mm, ležérne a dress hodinky, väčšinou automat, typicky 430 až 650€, s farebným alebo štruktúrovaným ciferníkom.",
+  "zhrnutie": "Páčia sa ti kompaktné hodinky s priemerom okolo 36 až 40mm, ktoré sa nosia pohodlne a nenápadne. Obľubuješ výrazné ciferníky, či už zelené, žlté, oranžové, lososové alebo štruktúrované, v kombinácii s nezávislými európskymi značkami. Najčastejšie siahaš po automate, občas po ručnom nátahu, a cenovo sa pohybuješ okolo 430 až 650€. Raz za čas sa odvážiš aj k drahším kúskom, ako je Studio Underd0g alebo Timex Giorgio Galli.",
   "navrhy": [
     {
-      "znacka": "Furlan Marri",
-      "krajina": "Švajčiarsko",
-      "model": "Disco Volante Disco Verde",
+      "znacka": "Lip",
+      "krajina": "Francúzsko",
+      "model": "Himalaya Automatique Sablier 40mm",
+      "styl": "Dress",
+      "priemer": 40,
+      "pohon": "automat",
+      "cena": 429,
+      "cenaPovodna": "429€",
+      "odkaz": "https://lip.fr/en/himalaya/218-lip-himalaya-40-sablier-671575",
+      "obrazok": "https://lip.fr/1665-product_feature/lip-himalaya-40-sablier-671575.jpg",
+      "preco": "Modrý ciferník v tvare presýpacích hodín a 40mm oceľové puzdro majú blízko k Orient Triton a Baltic Aquascaphe. Cena 429€ a automat Miyota 8N24 zodpovedajú Spinnaker Fleuss 40 a Vario 1918."
+    },
+    {
+      "znacka": "Lorier",
+      "krajina": "USA",
+      "model": "Falcon (bez dátumu, náramok)",
+      "styl": "Field",
+      "priemer": 36,
+      "pohon": "automat",
+      "cena": 640,
+      "cenaPovodna": "$699",
+      "odkaz": "https://www.lorierwatches.com/products/watch-falcon-black-nodate-bracelet-325080",
+      "obrazok": "https://www.lorierwatches.com/cdn/shop/files/lorier-falcon-watch-soldier-1x1.jpg?v=1784742743",
+      "preco": "Kompaktný 36mm field s automatom Miyota 9039 a bez dátumu sadne k Brew Metric a Vario 1918 Trench. Je to jediný návrh mimo Európy a cena je blízko Traska a Brew."
+    },
+    {
+      "znacka": "Yema",
+      "krajina": "Francúzsko",
+      "model": "Wristmaster Slim CMM.20",
+      "styl": "Dress",
+      "priemer": 39,
+      "pohon": "automat",
+      "cena": 2150,
+      "cenaPovodna": "$2490",
+      "odkaz": "https://yema.com/products/yema-wristmaster-slim-cmm-20-76-24-05-sn-m",
+      "obrazok": "https://yema.com/cdn/shop/files/WristmasterSlimCMM.20BlueFrontFacingW1500.webp?v=1749120961",
+      "preco": "Odvážnejší návrh. Cena je na úrovni Studio Underd0g 03 Series Salm0n a Timex Giorgio Galli. Dostaneš 39mm puzdro a manufaktúrny automat s mikrorotorom a rezervou 70 hodín, čo je blízko veľkosti Baltic Aquascaphe."
+    },
+    {
+      "znacka": "Pinion",
+      "krajina": "Veľká Británia",
+      "model": "Firestarter",
       "styl": "Dress",
       "priemer": 38,
-      "pohon": "ručný nátah",
-      "cena": 2650,
-      "cenaPovodna": "CHF 2500",
-      "odkaz": "https://www.furlanmarri.com/products/disco-verde-20205",
-      "obrazok": "https://cdn.sanity.io/images/8c019h2s/production/09c70ef4af8123caac593f60caeac642ba5ae2c2-9504x6336.tif?w=1200&h=630&fit=crop&auto=format",
-      "preco": "Odvážnejší a drahší návrh. Zeleno krémový ciferník a ručný nátah v 38mm puzdre sadnú k Hamilton Khaki Field Mechanical 38 Green a k dress kúskom ako Hamilton American Classic Cushion. Cenou sa približuje k Studio Underd0g 03 Series Salm0n a Timex Giorgio Galli."
+      "pohon": "automat",
+      "cena": 800,
+      "cenaPovodna": "£690",
+      "odkaz": "https://www.pinionwatches.com/firestarter/",
+      "obrazok": null,
+      "preco": "Prírodný ciferník z červeného achátu, 38mm oceľové puzdro a automat Miyota 9039 sadnú k Beaucroft The Arc a Serica 7505. Každý kus má iný ciferník, od sýtej červenej po oranžovú, podobne ako štruktúrované ciferníky Henry Archer Vesterhav Eris."
+    },
+    {
+      "znacka": "Straum",
+      "krajina": "Nórsko",
+      "model": "Jan Mayen Titanium Moss Green",
+      "styl": "Športové",
+      "priemer": 39,
+      "pohon": "automat",
+      "cena": 2400,
+      "cenaPovodna": "28000 NOK",
+      "odkaz": "https://straum.co/products/jan-mayen-titanium-moss-green",
+      "obrazok": "https://straum.co/cdn/shop/files/WATCH-JANMAYEN-CPL-02-TI5-GREEN-39-RUBBER-BLACK.webp?v=1776766114&width=1200",
+      "preco": "Odvážnejší návrh. Cena je nad Studio Underd0g a Timex Giorgio Galli, ale 38.7mm titánové puzdro a automat La Joux-Perret G101 s rezervou 68 hodín sedia k zbierke. Radiálne štruktúrovaný zelený ciferník nadväzuje na Spinnaker Fleuss 40 Pine Crest a Havaan Tuvali 886 Green. Predáva sa len v predpredaji a dodanie je vo februári 2027."
+    },
+    {
+      "znacka": "Depancel",
+      "krajina": "Francúzsko",
+      "model": "Allure Mono Eye Orange",
+      "styl": "Chronograf",
+      "priemer": 39,
+      "pohon": "mechakvarc",
+      "cena": 495,
+      "cenaPovodna": "495€",
+      "odkaz": "https://depancel.com/en/products/allure-mono-eye-orange",
+      "obrazok": "https://depancel.com/cdn/shop/files/allure-mono-eye-orange-face-rubber.jpg?v=1775722441",
+      "preco": "Chronograf s 39mm puzdrom a oranžovým vonkajším prstencom ciferníka. Hodí sa k Chronofuns Coffee Watch in Motion a oranžovému Beaucroft The Arc. Mechakvarcový strojček TMI VK64 drží cenu pod 500€, podobne ako Brew Metric."
     }
   ],
   "historiaNavrhov": [
@@ -25,6 +90,12 @@
     "Unimatic Modello Uno UC1 Classic",
     "Formex Essence 39 Automatic COSC Radiant Bronze",
     "Laco Augsburg 39",
-    "Furlan Marri Disco Volante Disco Verde"
+    "Furlan Marri Disco Volante Disco Verde",
+    "Lip Himalaya Automatique Sablier 40mm",
+    "Lorier Falcon (bez dátumu, náramok)",
+    "Yema Wristmaster Slim CMM.20",
+    "Pinion Firestarter",
+    "Straum Jan Mayen Titanium Moss Green",
+    "Depancel Allure Mono Eye Orange"
   ]
 }
