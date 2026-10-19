@@ -128,14 +128,25 @@ async function main() {
   const json = text.match(/<json>([\s\S]*?)<\/json>/)?.[1];
   if (!json) throw new Error('V odpovedi chýba JSON s návrhmi.');
   const vysledok = JSON.parse(json);
+  console.log(`Claude vrátil ${vysledok.navrhy?.length ?? 0} kandidátov: ${(vysledok.navrhy ?? []).map((n) => `${n.znacka} ${n.model}`).join('; ')}`);
 
   const vZbierke = new Set(znacky.map((z) => z.toLowerCase()));
   const navrhy = [];
   for (const n of vysledok.navrhy ?? []) {
     if (navrhy.length >= POCET) break;
-    if (!n.znacka || !n.model || !/^https:\/\//.test(n.odkaz ?? '')) continue;
-    if (vZbierke.has(n.znacka.toLowerCase())) continue;
-    if (navrhy.some((x) => x.znacka.toLowerCase() === n.znacka.toLowerCase())) continue;
+    const nazov = `${n.znacka} ${n.model}`;
+    if (!n.znacka || !n.model || !/^https:\/\//.test(n.odkaz ?? '')) {
+      console.warn(`Preskakujem ${nazov}: chýba údaj alebo odkaz nie je https.`);
+      continue;
+    }
+    if (vZbierke.has(n.znacka.toLowerCase())) {
+      console.warn(`Preskakujem ${nazov}: značka už je v zbierke.`);
+      continue;
+    }
+    if (navrhy.some((x) => x.znacka.toLowerCase() === n.znacka.toLowerCase())) {
+      console.warn(`Preskakujem ${nazov}: značka už je medzi návrhmi.`);
+      continue;
+    }
     const overenie = await overOdkaz(n.odkaz);
     if (!overenie) {
       console.warn(`Preskakujem ${n.znacka} ${n.model}: odkaz nefunguje.`);
