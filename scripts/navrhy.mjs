@@ -13,6 +13,7 @@ const SUBOR_VKUSU = new URL('src/data/vkus.json', KOREN);
 const MODEL = process.env.KALIBER_MODEL ?? 'claude-sonnet-5-5';
 const POCET = 6;
 const MAX_POKRACOVANI = 6;
+const MAX_DOPLNENI = 2;
 const UA = 'Mozilla/5.0 (compatible; KaliberBot/1.0; +https://kaliber.kucerka.sk)';
 
 // Jednoduché čítanie frontmatteru: stačia riadky "kľúč: hodnota".
@@ -108,63 +109,102 @@ async function main() {
     { type: 'web_search_20260209', name: 'web_search', max_uses: 20 },
     { type: 'web_fetch_20260209', name: 'web_fetch', max_uses: 20 },
   ];
-  const messages = [{ role: 'user', content: zadanie }];
 
-  let odpoved;
-  for (let i = 0; i <= MAX_POKRACOVANI; i++) {
-    odpoved = await client.messages
-      .stream({ model: MODEL, max_tokens: 32000, output_config: { effort: 'medium' }, system: SYSTEM, tools, messages })
-      .finalMessage();
-    if (odpoved.stop_reason !== 'pause_turn') break;
-    // Server preruší dlhé vyhľadávanie, pokračuje sa poslaním jeho rozpracovanej odpovede.
-    if (messages.length > 1) messages.pop();
-    messages.push({ role: 'assistant', content: odpoved.content });
+  async function spusti(spravy) {
+    let odpoved;
+    for (let i = 0; i <= MAX_POKRACOVANI; i++) {
+      odpoved = await client.messages
+        .stream({ model: MODEL, max_tokens: 32000, output_config: { effort: 'medium' }, system: SYSTEM, tools, messages: spravy })
+        .finalMessage();
+      if (odpoved.stop_reason !== 'pause_turn') break;
+      // Server preruší dlhé vyhľadávanie, pokračuje sa poslaním jeho rozpracovanej odpovede.
+      if (spravy.at(-1).role === 'assistant') spravy.pop();
+      spravy.push({ role: 'assistant', content: odpoved.content });
+    }
+    if (odpoved.stop_reason !== 'end_turn') {
+      throw new Error(`Hľadanie sa nedokončilo (stop_reason: ${odpoved.stop_reason}).`);
+    }
+    const text = odpoved.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n');
+    const json = text.match(/<json>([\s\S]*?)<\/json>/)?.[1];
+    if (!json) throw new Error('V odpovedi chýba JSON s návrhmi.');
+    return { odpoved, vysledok: JSON.parse(json) };
   }
-  if (odpoved.stop_reason !== 'end_turn') {
-    throw new Error(`Hľadanie sa nedokončilo (stop_reason: ${odpoved.stop_reason}).`);
-  }
-
-  const text = odpoved.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n');
-  const json = text.match(/<json>([\s\S]*?)<\/json>/)?.[1];
-  if (!json) throw new Error('V odpovedi chýba JSON s návrhmi.');
-  const vysledok = JSON.parse(json);
-  console.log(`Claude vrátil ${vysledok.navrhy?.length ?? 0} kandidátov: ${(vysledok.navrhy ?? []).map((n) => `${n.znacka} ${n.model}`).join('; ')}`);
 
   const vZbierke = new Set(znacky.map((z) => z.toLowerCase()));
   const navrhy = [];
-  for (const n of vysledok.navrhy ?? []) {
-    if (navrhy.length >= POCET) break;
-    const nazov = `${n.znacka} ${n.model}`;
-    if (!n.znacka || !n.model || !/^https:\/\//.test(n.odkaz ?? '')) {
-      console.warn(`Preskakujem ${nazov}: chýba údaj alebo odkaz nie je https.`);
-      continue;
+  const vyradene = [];
+
+  // Overí kandidátov a pridá tých, ktorí prešli, do navrhy.
+  async function spracuj(kandidati) {
+    for (const n of kandidati ?? []) {
+      if (navrhy.length >= POCET) break;
+      const nazov = `${n.znacka} ${n.model}`;
+      if (!n.znacka || !n.model || !/^https:\/\//.test(n.odkaz ?? '')) {
+        console.warn(`Preskakujem ${nazov}: chýba údaj alebo odkaz nie je https.`);
+        continue;
+      }
+      if (vZbierke.has(n.znacka.toLowerCase())) {
+        console.warn(`Preskakujem ${nazov}: značka už je v zbierke.`);
+        vyradene.push(nazov);
+        continue;
+      }
+      if (navrhy.some((x) => x.znacka.toLowerCase() === n.znacka.toLowerCase())) {
+        console.warn(`Preskakujem ${nazov}: značka už je medzi návrhmi.`);
+        vyradene.push(nazov);
+        continue;
+      }
+      const overenie = await overOdkaz(n.odkaz);
+      if (!overenie) {
+        console.warn(`Preskakujem ${nazov}: odkaz nefunguje.`);
+        vyradene.push(nazov);
+        continue;
+      }
+      navrhy.push({
+        znacka: n.znacka,
+        krajina: n.krajina,
+        model: n.model,
+        styl: n.styl,
+        priemer: n.priemer ?? null,
+        pohon: n.pohon ?? null,
+        cena: n.cena ?? null,
+        cenaPovodna: n.cenaPovodna ?? null,
+        odkaz: n.odkaz,
+        obrazok: overenie.obrazok,
+        preco: bezPomlciek(n.preco),
+      });
     }
-    if (vZbierke.has(n.znacka.toLowerCase())) {
-      console.warn(`Preskakujem ${nazov}: značka už je v zbierke.`);
-      continue;
-    }
-    if (navrhy.some((x) => x.znacka.toLowerCase() === n.znacka.toLowerCase())) {
-      console.warn(`Preskakujem ${nazov}: značka už je medzi návrhmi.`);
-      continue;
-    }
-    const overenie = await overOdkaz(n.odkaz);
-    if (!overenie) {
-      console.warn(`Preskakujem ${n.znacka} ${n.model}: odkaz nefunguje.`);
-      continue;
-    }
-    navrhy.push({
-      znacka: n.znacka,
-      krajina: n.krajina,
-      model: n.model,
-      styl: n.styl,
-      priemer: n.priemer ?? null,
-      pohon: n.pohon ?? null,
-      cena: n.cena ?? null,
-      cenaPovodna: n.cenaPovodna ?? null,
-      odkaz: n.odkaz,
-      obrazok: overenie.obrazok,
-      preco: bezPomlciek(n.preco),
+  }
+
+  const spravy = [{ role: 'user', content: zadanie }];
+  let { odpoved, vysledok } = await spusti(spravy);
+  console.log(`Claude vrátil ${vysledok.navrhy?.length ?? 0} kandidátov: ${(vysledok.navrhy ?? []).map((n) => `${n.znacka} ${n.model}`).join('; ')}`);
+  await spracuj(vysledok.navrhy);
+
+  // Model niekedy vráti menej kandidátov, než sa žiada. Chýbajúce dopýtame v ďalších kolách.
+  for (let kolo = 1; kolo <= MAX_DOPLNENI && navrhy.length < POCET; kolo++) {
+    const chyba = POCET - navrhy.length;
+    console.log(`Chýba ${chyba} návrhov, doplnenie ${kolo}/${MAX_DOPLNENI}.`);
+    spravy.push({ role: 'assistant', content: odpoved.content });
+    spravy.push({
+      role: 'user',
+      content: [
+        `Prešlo len ${navrhy.length} z ${POCET} návrhov (${navrhy.map((n) => n.znacka).join(', ') || 'žiadny'}).`,
+        vyradene.length ? `Vyradené: ${vyradene.join('; ')}.` : '',
+        `Nájdi ešte ${chyba + 2} nových kandidátov od iných značiek, než sú v zbierke a než už boli spomenuté. Hľadaj aj mimo najznámejších mikroznačiek a over každý odkaz cez web_fetch. Vráť iba JSON v značkách <json></json> v rovnakom tvare, v poli navrhy iba nových kandidátov (skratka a zhrnutie môžu zostať rovnaké).`,
+      ].filter(Boolean).join('\n'),
     });
+    const dalsie = await spusti(spravy);
+    odpoved = dalsie.odpoved;
+    console.log(`Doplnenie vrátilo ${dalsie.vysledok.navrhy?.length ?? 0} kandidátov: ${(dalsie.vysledok.navrhy ?? []).map((n) => `${n.znacka} ${n.model}`).join('; ')}`);
+    await spracuj(dalsie.vysledok.navrhy);
+  }
+  // Ak ani po doplnení nie je dosť nových návrhov, ponecháme staršie, ktoré ešte platia.
+  for (const stary of vkus.navrhy ?? []) {
+    if (navrhy.length >= POCET) break;
+    const znacka = stary.znacka?.toLowerCase();
+    if (!znacka || vZbierke.has(znacka) || navrhy.some((x) => x.znacka.toLowerCase() === znacka)) continue;
+    console.warn(`Ponechávam predchádzajúci návrh ${stary.znacka} ${stary.model}.`);
+    navrhy.push(stary);
   }
   if (navrhy.length === 0) throw new Error('Žiadny návrh neprešiel overením, vkus.json nemením.');
 
