@@ -1,46 +1,33 @@
 {
-  "analyza": "2026-10-15",
-  "skratka": "36 až 40mm, retro a farebné ciferníky (modrá, zelená, lososová, pieskový odtieň), automat, najčastejšie 430 až 650€, výnimočne do 2000€",
-  "zhrnutie": "Uprednostňuješ menšie a stredné puzdrá okolo 36 až 40mm a výrazný ciferník, ktorý stojí na farbe, štruktúre alebo povrchu (lososový, zelený, žltý, perleťový, smaltovaný). Takmer všetko je automat, ručný nátah sa objaví pri poľných a chronografových kúskoch. Najčastejšie sa pohybuješ v pásme 430 až 650€, no pri výnimočných kúskoch ideš aj nad 1000€. Rád máš európske mikroznačky s retro dizajnom a zároveň si pripustíš aj Áziu a USA.",
+  "analyza": "2026-10-19",
+  "skratka": "Kompaktné 36 až 40mm, field a dress, automat alebo ručný nátah, typicky 400 až 1200€, občas vyššie.",
+  "zhrnutie": "Páčia sa ti kompaktné hodinky okolo 36 až 40mm, hlavne field a dress modely, ako Hamilton Khaki Field Mechanical 38 alebo Vario 1918 Trench. Uprednostňuješ automatický strojček alebo ručný nátah, kremeň máš len pri Sternglas. Ciferníky majú výrazný charakter: slnečný výbrus, smalt, zelená, oranžová alebo teplé pieskové tóny. Cenovo sa najčastejšie pohybuješ medzi 400 a 1200€, výnimočne siahaš až k 2000€.",
   "navrhy": [
     {
-      "znacka": "Farer",
-      "krajina": "Veľká Británia",
-      "model": "Venture",
-      "styl": "Dress",
+      "znacka": "Formex",
+      "krajina": "Švajčiarsko",
+      "model": "Essence 39 Automatic COSC Radiant Bronze",
+      "styl": "Športové",
       "priemer": 39,
       "pohon": "automat",
-      "cena": 1260,
-      "cenaPovodna": "£1095",
-      "odkaz": "https://farer.com/products/venture",
-      "obrazok": "https://farer.com/cdn/shop/files/BLUE-SUEDE-tan_949f79dc-427b-49a5-836d-b249fadcad28.png?v=1764932067",
-      "preco": "Metalický modrý lakovaný ciferník a 39mm puzdro sedia medzi Baltic Aquascaphe a Beaucroft The Arc. Strojček La Joux-Perret G101 a britský dizajn sú v cenovej lige Serica 7505."
+      "cena": 1670,
+      "cenaPovodna": "CHF1570",
+      "odkaz": "https://formexwatch.com/watches/essence-39-automatic-cosc-radiant-bronze/",
+      "obrazok": "https://cdn11.bigcommerce.com/s-uok04hg6nb/products/1167/images/5580/0339.1.6681.101__28554.1787307225.386.513.jpg?c=1",
+      "preco": "Teplý bronzový ciferník so strojčekom Sellita SW200-2 s certifikátom COSC sadne k Baltic Aquascaphe Warm Silver a k pieskovému ciferníku Christopher Ward C60 Trident Biscay. Priemer 39mm zodpovedá tvojim obľúbeným veľkostiam a cena je v pásme Serica 7505."
     },
     {
-      "znacka": "Nivada Grenchen",
-      "krajina": "Švajčiarsko",
-      "model": "Super Antarctic Blue",
-      "styl": "Dress",
-      "priemer": 38,
+      "znacka": "Laco",
+      "krajina": "Nemecko",
+      "model": "Augsburg 39",
+      "styl": "Field",
+      "priemer": 39,
       "pohon": "automat",
-      "cena": 870,
-      "cenaPovodna": "$945",
-      "odkaz": "https://nivadagrenchenofficial.com/collections/antarctic-watches/products/super-antarctic-blue",
-      "obrazok": "https://nivadagrenchenofficial.com/cdn/shop/files/super-antarctic-blue-blue-leather-front.png?v=1790859601&width=1200",
-      "preco": "Modrý slnečný ciferník s dátumom a 38mm puzdro pripomínajú Citizen Tsuyosa a Brew Metric. Retro dizajn na oceľovom náramku je pre zbierku bezpečná voľba."
-    },
-    {
-      "znacka": "Unimatic",
-      "krajina": "Taliansko",
-      "model": "Modello Uno UC1 Classic",
-      "styl": "Diver",
-      "priemer": 40,
-      "pohon": "automat",
-      "cena": 640,
-      "cenaPovodna": "€640",
-      "odkaz": "https://www.unimaticwatches.com/uc1/",
-      "obrazok": "https://www.unimaticwatches.com/cdn/shop/files/UC1-Hero.png?v=1785834803&width=1200",
-      "preco": "Taliansky diver s 40mm puzdrom a cenou okolo 640€ sedí k Baltic Aquascaphe a Spinnaker Fleuss. Čierny matný ciferník s bledozelenou svietivou vrstvou je pokojnejší doplnok k farebným diverom."
+      "cena": 390,
+      "cenaPovodna": "€390",
+      "odkaz": "https://www.laco.de/en/watches/pilot-watches-basic/augsburg-39/861988",
+      "obrazok": "https://www.laco.de/media/74/e1/21/1751015436/laco-fliegeruhr-typ-a-augsburg-39-861988-neu-2020.png?ts=1751015436",
+      "preco": "Nemecký pilotný field model s automatom v prístupnej cene, podobne ako Vario 1918 Trench alebo Hamilton Khaki Field. Je to ďalšia európska značka s funkčným, čitateľným ciferníkom v kompaktnej veľkosti."
     }
   ],
   "historiaNavrhov": [
@@ -48,6 +35,8 @@
     "Nivada Grenchen Super Antarctic Blue",
     "Nivada Grenchen Antarctic Spider Salmon",
     "Farer Alert",
-    "Unimatic Modello Uno UC1 Classic"
+    "Unimatic Modello Uno UC1 Classic",
+    "Formex Essence 39 Automatic COSC Radiant Bronze",
+    "Laco Augsburg 39"
   ]
 }
