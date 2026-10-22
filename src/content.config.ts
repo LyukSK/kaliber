@@ -23,7 +23,7 @@ const hodinky = defineCollection({
     znacka: reference('znacky'),
     model: z.string(),
     referencia: z.string().optional(),
-    stav: z.enum(['inspiracia', 'chcem', 'mam']),
+    stav: z.enum(['inspiracia', 'chcem', 'mam', 'drahe']),
     priorita: z.number().int().min(1).max(5).optional(),
     cena: z.number().optional(),
     styl: z.enum(['Diver', 'Field', 'Chronograf', 'GMT', 'Dress', 'Športové', 'Pilotné', 'Integrovaný náramok', 'Iné']),

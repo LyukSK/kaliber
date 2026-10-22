@@ -5,8 +5,8 @@ import { nacitajHodinky, cislo, cena, hodiniek } from '../lib/hodinky.js';
 import vkus from '../data/vkus.json';
 
 const vsetky = await nacitajHodinky();
-// Chcem a Mám vážia dvakrát viac ako inšpirácia.
-const vaha = (h) => (h.data.stav === 'inspiracia' ? 1 : 2);
+// Chcem a Mám vážia dvakrát viac ako inšpirácia a krásne, ale drahé.
+const vaha = (h) => (h.data.stav === 'inspiracia' || h.data.stav === 'drahe' ? 1 : 2);
 const MIN = 10;
 
 function skupina(titulok, hodnota) {
@@ -28,7 +28,8 @@ const skupiny = [
   skupina('Pôvod značky', (h) => h.znacka.data.krajina),
 ].filter((s) => s.riadky.length > 0);
 
-const ceny = vsetky.map((h) => h.data.cena).filter(Boolean);
+// Hodinky v stave Krásne, ale drahé sú mimo rozpočtu, preto cenové rozpätie neskresľujú.
+const ceny = vsetky.filter((h) => h.data.stav !== 'drahe').map((h) => h.data.cena).filter(Boolean);
 const analyza = vkus.analyza ? new Date(vkus.analyza).toLocaleDateString('sk-SK') : null;
 ---
 <Zaklad titulok="Môj vkus" aktivne="vkus">
@@ -36,7 +37,7 @@ const analyza = vkus.analyza ? new Date(vkus.analyza).toLocaleDateString('sk-SK'
     {analyza && <div class="stitok">Posledná analýza · {analyza}</div>}
     <h1 class="nadpis-stranky">Môj vkus</h1>
     <p class="uvod">
-      Profil sa skladá zo všetkých hodiniek v zbierke. Hodinky v stave Chcem a Mám vážia viac ako inšpirácia.
+      Profil sa skladá zo všetkých hodiniek v zbierke. Hodinky v stave Chcem a Mám vážia viac ako inšpirácia a Krásne, ale drahé, ktoré sa navyše nepočítajú do cenového rozpätia.
       Teraz vychádza z {vsetky.length === 1 ? 'jedných hodiniek' : `${vsetky.length} kúskov`}{vsetky.length < MIN && `, spoľahlivý bude zhruba od ${MIN}`}.
     </p>
   </div>

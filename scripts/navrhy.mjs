@@ -73,6 +73,7 @@ Pravidlá výberu:
 - Prednostne európske značky (napríklad Francúzsko, Nemecko, Švajčiarsko, Veľká Británia, Dánsko, Taliansko, Česko, Poľsko). Najviac jeden návrh smie byť mimo Európy.
 - Nenavrhuj značky, ktoré už sú v zbierke, ani modely zo zoznamu predchádzajúcich návrhov.
 - Každá značka smie byť v návrhoch najviac raz, chcem pestrý výber.
+- Hodinky v zbierke so stavom drahe sú krásne, ale nad rozpočtom. Berú sa ako náznak vkusu (dizajn, materiály), no do cenového pásma sa nepočítajú. Cenové pásmo určujú stavy chcem a mam.
 - Drž sa vkusu podľa zbierky: veľkosti, štýly, farby ciferníkov, typ strojčeka a cenové pásmo. Jeden návrh môže byť odvážnejší, ale stále zdôvodnený.
 - Údaje (cena, priemer, strojček) over na stránke cez web_fetch. Čo neoveríš, nepíš.
 

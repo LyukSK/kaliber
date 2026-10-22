@@ -12,7 +12,7 @@ Najčastejšia úloha: používateľ pošle odkaz (e-shop, Kickstarter, článok
 4. Spusti `npm run build`, aby si overil, že schéma sedí.
 5. Commitni a pushni do `main`. Web sa nasadí sám do pár minút.
 
-Stav: `chcem` (zoznam prianí), `inspiracia`, `mam` (vlastním). Ak používateľ stav nepovie, použi `chcem`.
+Stav: `chcem` (zoznam prianí), `inspiracia`, `mam` (vlastním), `drahe` (Krásne, ale drahé: ultradrahé hodinky, ktoré sa páčia, ale sú ďaleko nad rozpočtom, približne nad 5000€; nie sú v zozname prianí a nepočítajú sa do cenového rozpätia vo vkuse). Ak používateľ stav nepovie, použi `chcem`.
 
 ### Pridanie z návrhov
 

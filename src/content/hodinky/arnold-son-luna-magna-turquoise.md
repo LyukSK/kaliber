@@ -2,7 +2,7 @@
 znacka: arnold-son
 model: Luna Magna Steel Turquoise Edition
 referencia: 1LMAS.T01A.C1322D
-stav: chcem
+stav: drahe
 cena: 47570
 styl: Dress
 priemer: 44

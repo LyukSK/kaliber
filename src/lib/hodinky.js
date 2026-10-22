@@ -4,6 +4,7 @@ export const STAVY = {
   chcem: 'Chcem',
   inspiracia: 'Inšpirácia',
   mam: 'Mám',
+  drahe: 'Krásne, ale drahé',
 };
 
 // Načíta hodinky aj so značkou, zoradené od najnovších.

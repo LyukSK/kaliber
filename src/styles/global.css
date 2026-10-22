@@ -115,6 +115,7 @@ h1, h2, h3 { margin: 0; line-height: 1.1; }
 }
 .stav-chcem { background: var(--sekundovka); border-color: var(--sekundovka); color: #FFFFFF; }
 .stav-mam { background: var(--atrament); color: var(--cifernik); }
+.stav-drahe { background: var(--biela); border-style: dashed; }
 
 .karta {
   background: var(--biela);
