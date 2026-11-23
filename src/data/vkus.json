@@ -1,8 +1,60 @@
 {
-  "analyza": "2026-11-16",
-  "skratka": "Kompaktné 35 až 40mm, dress a field, ručný nátah alebo automat, typicky 450 až 1900€",
-  "zhrnutie": "Páčia sa ti kompaktné hodinky do 40mm, najmä dress a field modely s ručným nátahom, ako Hamilton Khaki Field Mechanical 38 alebo Paulin Modul D. Máš rád farebné ciferníky, zelené, modré, lososové aj oranžové, a drobné detaily ako malá sekunda či guilloché. Strojčeky sú väčšinou automatické, popri nich sa objavuje ručný nátah. Typická cena sa pohybuje medzi 450 a 1900€, občas sa pozrieš aj vyššie k nedostupným kúskom ako Arnold & Son.",
+  "analyza": "2026-11-23",
+  "skratka": "Kompaktné 35 až 40mm, dress a field, automat alebo ručný nátah, typicky 400 až 1200€",
+  "zhrnutie": "Páčia sa ti kompaktné hodinky s priemerom okolo 36 až 40mm, často s ručným nátahom alebo automatom. Preferuješ výrazné, no jemné ciferníky: lososové, fumé, zelené, modré a pieskové, často so slnečným alebo lúčovitým brusom. Siahaš po dress a field modeloch aj po športových kúskoch od nezávislých značiek, väčšinou z Európy. Najčastejšie sa držíš pásma približne 400 až 1200€, zriedka ideš vyššie. Tento týždeň sa mi nepodarilo overiť žiadne nové modely, preto je zoznam návrhov prázdny.",
   "navrhy": [
+    {
+      "znacka": "Delbana",
+      "krajina": "Švajčiarsko",
+      "model": "Recordmaster Mechanical 41601.748.6.064 (strieborný ciferník)",
+      "styl": "Dress",
+      "priemer": 40,
+      "pohon": "ručný nátah",
+      "cena": 850,
+      "cenaPovodna": "CHF 800",
+      "odkaz": "https://delbana.ch/products/recordmaster-mechanical-41601-748-6-064",
+      "obrazok": "https://delbana.ch/cdn/shop/files/Delbana_RecordmasterMechanical_41601_748_6_064.jpg?v=1750318306&width=2048",
+      "preco": "Ručne naťahovaný Sellita SW210-1 v retro dress prevedení s arabskými číslicami je blízko k Hamilton Khaki Field Mechanical 38 aj k Paulin Modul D. Strieborný ciferník dopĺňa svetlé ciferníky v zbierke a cena zostáva v známom pásme."
+    },
+    {
+      "znacka": "Certina",
+      "krajina": "Švajčiarsko",
+      "model": "DS-1 38mm C029.207.11.041.00 (modrý)",
+      "styl": "Športové",
+      "priemer": 38,
+      "pohon": "automat",
+      "cena": 700,
+      "cenaPovodna": "CHF 660",
+      "odkaz": "https://www.certina.com/en/watch/ds-1-38mm/c0292071104100",
+      "obrazok": null,
+      "preco": "Kompaktných 38mm s automatom a modrou farbou sa hodí k Trafford Crossroads S Core 40 Blue a k Baltic Aquascaphe. Oceľová verzia za približne 700€ je v rozpočte a je bezpečnou, nenápadnou voľbou."
+    },
+    {
+      "znacka": "Mido",
+      "krajina": "Švajčiarsko",
+      "model": "Commander Gradient M021.407.11.411.00",
+      "styl": "Dress",
+      "priemer": 40,
+      "pohon": "automat",
+      "cena": 1000,
+      "cenaPovodna": "$1090",
+      "odkaz": "https://www.midowatches.com/us/commander-gradient-m0214071141100.html",
+      "obrazok": "https://www.midowatches.com/media/catalog/product/cache/4a87fe500b0570e77816f1ebe2532e64/M/0/M021.407.11.411.00_0_front_1.png",
+      "preco": "Priehľadný ciferník s farebným prechodom je odvážnejší, no v rovnakom duchu ako fumé ciferníky na Duckworth Prestex Verimatic a Beaucroft The Arc. Automat s rezervou až 80 hodín a priemer 40mm zostávajú v známom rozmedzí, cena je na hornej hranici pásma."
+    },
+    {
+      "znacka": "Rotary",
+      "krajina": "Veľká Británia",
+      "model": "Regent Automatic GB05410/05",
+      "styl": "Integrovaný náramok",
+      "priemer": 40,
+      "pohon": "automat",
+      "cena": 230,
+      "cenaPovodna": "£199",
+      "odkaz": "https://rotarywatches.com/en-eu/products/rotary-regent-automatic-gents-watch-gb0541005",
+      "obrazok": "https://rotarywatches.com/cdn/shop/files/GB05410-05_1_dfd1f851-a940-4343-8c4d-97545586f097.png?v=1776766348&width=2048",
+      "preco": "Osemhranný oceľový kúsok s integrovaným náramkom a tmavomodrým ciferníkom je lacnejšia alternatíva k Citizen Tsuyosa a Timex Giorgio Galli S2Ti. Automatický strojček a 40mm priemer sa držia zbierky, cena je výrazne pod bežným pásmom."
+    },
     {
       "znacka": "Junghans",
       "krajina": "Nemecko",
@@ -28,58 +80,6 @@
       "odkaz": "https://nomos-glashuette.com/en-us/watches/new-releases/campus",
       "obrazok": "https://cdn.nomos-glashuette.com/img/f=scale-down,w=2560/cms/content/watches/club/0718_0722_club-campus-startseite-detail-gruppe.jpg",
       "preco": "Kompaktný ručne naťahovaný model s manufaktúrnym kalibrom DUW 4001 v ružovej a olivovozelenej farbe. Veľkosťou aj cenou sa blíži k Trafford Crossroads S Core 40 Blue a Havaan Tuvali Heritage 886 Green."
-    },
-    {
-      "znacka": "Farer",
-      "krajina": "Veľká Británia",
-      "model": "Lander GMT",
-      "styl": "GMT",
-      "priemer": 39.5,
-      "pohon": "automat",
-      "cena": 1675,
-      "cenaPovodna": "1675€",
-      "odkaz": "https://eur.farer.com/products/lander",
-      "obrazok": "https://eur.farer.com/cdn/shop/files/LANDER-GMT-SUEDE-Lander.png?v=1727266532",
-      "preco": "Švajčiarsky automat s GMT a morskozeleným ciferníkom v rozumnej veľkosti. Prirodzene dopĺňa Traska Venturer GMT a zelené ciferníky ako Spinnaker Fleuss 40 Pine Crest."
-    },
-    {
-      "znacka": "Stowa",
-      "krajina": "Nemecko",
-      "model": "Marine Classic 40 arabic automatic basic bez dátumu",
-      "styl": "Diver",
-      "priemer": 40,
-      "pohon": "automat",
-      "cena": 832,
-      "cenaPovodna": "831,93€",
-      "odkaz": "https://www.stowa.de/marine-classic-40-arabic-automatic-basic-without-date-leather-strap-black-hand-stitched_2",
-      "obrazok": "https://www.stowa.de/media/image/product/1672/lg/marine-klassik-40-arabisch-automatik-basis-ohne-datum-lederband-schwarz-handgenaeht_1.png",
-      "preco": "Čistý model bez dátumu s arabskými číslicami v priemere 40mm, ako mnohé hodinky v zbierke. Cenou zapadne k Duckworth Prestex Verimatic a Baltic Aquascaphe MK2."
-    },
-    {
-      "znacka": "Lip",
-      "krajina": "Francúzsko",
-      "model": "Grande Nautic-Ski Automatique 671859",
-      "styl": "Diver",
-      "priemer": 41,
-      "pohon": "automat",
-      "cena": 659,
-      "cenaPovodna": "659€",
-      "odkaz": "https://lip.fr/en/nautic-ski/404-lip-nautic-ski-671859",
-      "obrazok": "https://lip.fr/1859-product_feature/lip-nautic-ski-671859.jpg",
-      "preco": "Francúzsky kompresorový diver s odolnosťou 200m v cene Baltic Aquascaphe MK2. Je o niečo väčší ako zvyčajne, ale s historickým pôvodom ide o zdôvodnený krok bokom."
-    },
-    {
-      "znacka": "Mühle Glashütte",
-      "krajina": "Nemecko",
-      "model": "29er Casual Coastal Blue",
-      "styl": "Športové",
-      "priemer": 42.4,
-      "pohon": "automat",
-      "cena": 1950,
-      "cenaPovodna": "1950€",
-      "odkaz": "https://www.muehle-glashuette.de/en/watch/29er-casual-coastal-blue/",
-      "obrazok": "https://www.muehle-glashuette.de/wp-content/uploads/29er-Casual-M1-25-72-LB-strap-de.png",
-      "preco": "Odvážnejší návrh, väčší a s dátumom, no s modrým ciferníkom a automatom Sellita SW300-1 v cene Timex Giorgio Galli. Sadne k modrému ladeniu ako Trafford Crossroads či Brew Metric."
     }
   ],
   "historiaNavrhov": [
@@ -120,6 +120,12 @@
     "Farer Lander GMT",
     "Stowa Marine Classic 40 arabic automatic basic bez dátumu",
     "Lip Grande Nautic-Ski Automatique 671859",
-    "Mühle Glashütte 29er Casual Coastal Blue"
+    "Mühle Glashütte 29er Casual Coastal Blue",
+    "Delbana Recordmaster Mechanical 41601.748.6.064 (strieborný ciferník)",
+    "Certina DS-1 38mm C029.207.11.041.00 (modrý)",
+    "Mido Commander Gradient M021.407.11.411.00",
+    "Rotary Regent Automatic GB05410/05",
+    "Junghans Meister Handaufzug",
+    "Nomos Glashütte Club Campus 36"
   ]
 }
